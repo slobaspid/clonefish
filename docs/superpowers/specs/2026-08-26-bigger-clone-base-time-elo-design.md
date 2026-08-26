@@ -76,6 +76,18 @@ already readable from the board, so time is redundant for move *choice*. → tim
 scalar `fc_ponder` head is off). Allie uses a scalar MSE time head and reports the same hedge (predicts
 *low*). ChessMimic uses the bucket classifier we adopt.
 
+**Decision — train our own (not reuse).** All open weights with a usable time head are
+**license-encumbered for a product**: ChessMimic (github.com/thomasj02/1e4_ai; move + bucket-clock +
+outcome, per-rating, ~9M/band) is **PolyForm Noncommercial, and the restriction extends to the trained
+artifacts**; Nova (99M, move-only) is custom-NC; Allie/Maia-3 are research-licensed. Crucially, **none of
+them personalize / clone an individual** — all are population or per-band. So the population base is not
+novel, but reusing it would bind clonefish to non-commercial terms. We therefore **train our own base**
+(unencumbered ownership) and use the open models only as **external benchmarks**:
+- **ChessMimic clock model** — target for our bucket time head's snap/tail calibration.
+- **Maia-3 (23M) move-match** (~57%) — the move-accuracy bar for our bigger backbone.
+The personalization layer (per-player fine-tune, Elo trajectory, opponent-relative style) is the part
+that is genuinely ours and has no open equivalent.
+
 ## 4. Architecture
 
 ### 4.1 Backbone
