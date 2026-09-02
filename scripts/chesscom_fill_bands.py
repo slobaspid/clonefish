@@ -62,6 +62,45 @@ def _as_cells(raw):
     return out
 
 
+def seed_from_corpus(corpus_dir, floor, ceiling):
+    """Mine (username, rating) pairs out of an existing corpus dir's PGN headers.
+
+    The high-band corpus was harvested at --max-gap 150, so those accounts' MISMATCH games were
+    discarded — they are exactly the players the high bands still need. Their ratings are already in
+    the headers, so seeding from them costs no API calls, and unlike the country-list seed it can
+    actually reach 2300+ (the opponent graph from a low-band frontier never walks up that far).
+    """
+    import collections
+    import glob
+    import io as _io
+
+    hdr = re.compile(r'\[(White|Black|WhiteElo|BlackElo) "([^"]*)"\]')
+    rating = {}
+    dctx = zstd.ZstdDecompressor()
+    for p in glob.glob(os.path.join(corpus_dir, "*.pgn.zst")):
+        try:
+            with open(p, "rb") as fh:
+                text = _io.TextIOWrapper(dctx.stream_reader(fh), encoding="utf-8", errors="ignore")
+                cur = {}
+                for line in text:
+                    m = hdr.match(line)
+                    if m:
+                        cur[m.group(1)] = m.group(2)
+                    elif line.startswith("1.") and cur:       # end of a game's headers
+                        for side in ("White", "Black"):
+                            u = cur.get(side, "")
+                            try:
+                                r = int(cur.get(side + "Elo", 0))
+                            except ValueError:
+                                r = 0
+                            if u and floor <= r < ceiling:
+                                rating[u] = r                  # last rating seen for that account wins
+                        cur = {}
+        except Exception:                                      # a truncated archive must not stop seeding
+            continue
+    return sorted(rating.items(), key=lambda kv: -kv[1])        # strongest first
+
+
 def load_state(path):
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
@@ -93,6 +132,9 @@ def main():
                     default="RS,US,IN,DE,BR,ES,FR,RU,PL,NL,GB,UA,AR,TR,IT,PH,CA,MX,ID,VN,CN,EG,IR")
     ap.add_argument("--seed-users", type=int, default=4000, help="initial country seeds (bootstrap)")
     ap.add_argument("--seed-titled", type=int, default=0, help="also seed N titled players (high-band entry)")
+    ap.add_argument("--seed-dir", default="",
+                    help="mine (user, rating) from an existing corpus dir's PGN headers and add them to "
+                         "the frontier (no API calls). The way to reach the high bands.")
     ap.add_argument("--prior-counts", default="",
                     help="JSON {band: existing_game_count} to count toward target (e.g. the old DB)")
     ap.add_argument("--max-crawl", type=int, default=300000, help="safety cap on players crawled")
@@ -159,6 +201,18 @@ def main():
                 if u not in crawled and u not in frontier_set:
                     buckets[hi].append((u, hi))               # crawl these when high bands need filling
                     frontier_set.add(u)
+
+    # Corpus seed runs on EVERY start, not just the bootstrap: an existing frontier is no help if it
+    # holds nothing above ~2000, which is the state a country-list seed leaves it in.
+    if args.seed_dir and os.path.isdir(args.seed_dir):
+        print(f"seeding frontier from corpus {args.seed_dir} ...", file=sys.stderr)
+        added = 0
+        for u, r in seed_from_corpus(args.seed_dir, args.floor, args.ceiling):
+            if u not in crawled and u not in frontier_set:
+                buckets[band_of(r)].append((u, r))
+                frontier_set.add(u)
+                added += 1
+        print(f"  seeded {added:,} players (frontier now {len(frontier_set):,})", file=sys.stderr)
 
     cctx = zstd.ZstdCompressor(level=10)
     seen_uuid = set()
