@@ -23,7 +23,7 @@ titled-player lists, so the corpus we have is a *high-Elo* corpus. Recorded per-
 |---|---|---|
 | 1000-1900 | 6.2k - 22.3k each | **~899k short** |
 | 2000-2200 | 23.5k / 41.0k / 60.4k | ~175k short |
-| 2300-2800 | 107.7k - 190.9k each | **already at target** |
+| 2300-2800 | 107.7k - 190.9k each | **at target on totals**, but peer-matched only - still owe the gap quota |
 | 2900 | 81.3k | ~19k short |
 | 3000+ | 39.3k, 12.9k, 3.2k, 207 | supply-limited; will not fill |
 
@@ -55,7 +55,10 @@ record build time.
   number-of-games.
 
 **Non-goals**
-- No re-crawl of bands 2300-2800; they are done.
+- No full re-crawl of bands 2300-2800. They are done **for peer-matched games only** - they were
+  harvested at `--max-gap 150`, so they hold essentially zero mismatches and still owe their ~20% gap
+  quota (roughly 20k games each, not 100k). The per-cell `needs()` in section 8 handles this
+  automatically: their bucket-0 cell is full, their mismatch cells are not.
 - No behavioural filtering (blowouts, premove flurries, time scrambles are kept - see 6.6).
 - No Lichess harvest in this iteration. The `site` field exists so a later one does not require another
   rebuild.
