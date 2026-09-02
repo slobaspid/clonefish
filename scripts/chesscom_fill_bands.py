@@ -29,11 +29,15 @@ def band_of(rating):
 # Elo-gap buckets, from the MOVER's point of view. Sign says who is stronger:
 #   0 = even (<100)   +1 = playing DOWN 100-249   -1 = playing UP 100-249
 #                     +2 = playing DOWN 250+      -2 = playing UP 250+
-# Fractions are the per-band share each bucket must reach (design 2026-09-02 s3.1:
-# >=20% of a band at |gap|>=100, >=7% at |gap|>=250). Anything above target is fine;
-# these are floors, and bucket 0 soaks up the remainder.
-BUCKET_FRAC = {0: 0.80, 1: 0.065, -1: 0.065, 2: 0.035, -2: 0.035}
-BUCKETS = tuple(BUCKET_FRAC)
+#
+# These are COUNTERS FOR REPORTING, not quotas. The spec's original 20%/7% floors were
+# guessed, and measurement killed them: chess.com pairs tightly at every rating, so the
+# real supply is ~13% at |gap|>=100 and ~1.7% at |gap|>=250, in the low bands (227,857
+# games) and the high bands (20,916 sides) alike. A 4x-unreachable floor would have made
+# the crawl never terminate. The gap is a continuous input the model conditions on, not a
+# class needing balance, so we keep every mismatch the population offers and gate band
+# completion on totals alone.
+BUCKETS = (0, 1, -1, 2, -2)
 
 
 def gap_bucket(own, opp):
@@ -167,22 +171,11 @@ def main():
             return prior[b][k] + band_count[b][k]
         return sum(prior[b][j] + band_count[b][j] for j in BUCKETS)
 
-    def cell_target(k):
-        return int(args.target * BUCKET_FRAC[k])
-
-    def cell_needs(b, k):
-        return b in bands and have(b, k) < cell_target(k)
-
     def needs(b):
-        """A band still wants games if ANY of its gap buckets is under its floor.
-
-        Bands crawled peer-matched (the old DB) look full on totals but hold zero
-        mismatches, so they stay needy until their +/-1 and +/-2 cells fill.
-        """
-        return b in bands and any(cell_needs(b, k) for k in BUCKETS)
+        return b in bands and have(b) < args.target
 
     def shortfall(b):
-        return sum(max(0, cell_target(k) - have(b, k)) for k in BUCKETS)
+        return max(0, args.target - have(b)) if b in bands else 0
 
     def all_full():
         return not any(needs(b) for b in bands)
@@ -258,7 +251,7 @@ def main():
                 for own, opp in ((wr, br), (br, wr)):
                     cells[band_of(own)] = gap_bucket(own, opp)
                 cells = list(cells.items())
-                if any(cell_needs(b, k) for b, k in cells):
+                if any(needs(b) for b, _ in cells):
                     pgn = g["pgn"].replace('[TimeControl "180"]', '[TimeControl "180+0"]')
                     blob.append(pgn.strip())
                     for b, k in cells:
@@ -291,11 +284,15 @@ def main():
                   f"({mism:,} mismatch) | frontier {front:,} | {time.time()-t0:.0f}s", file=sys.stderr)
 
     save_state(state_path, band_count, crawled, buckets)
-    print("\n=== crawl checkpoint ===  (per band: total / target, then the gap cells)")
+    print("\n=== crawl checkpoint ===  (per band: total / target, then observed gap mix)")
     for b in bands:
-        cells = "  ".join(f"{k:+d}:{have(b,k):,}/{cell_target(k):,}" for k in (-2, -1, 0, 1, 2))
-        print(f"  {b}-{b+99}: {have(b):>7,}/{args.target:,}  {cells}"
-              f" {'FULL' if not needs(b) else ''}")
+        h = have(b)
+        m1 = sum(have(b, k) for k in BUCKETS if k)
+        m2 = sum(have(b, k) for k in BUCKETS if abs(k) == 2)
+        pct1 = 100 * m1 / h if h else 0.0
+        pct2 = 100 * m2 / h if h else 0.0
+        print(f"  {b}-{b+99}: {h:>7,}/{args.target:,}  gap>=100 {m1:>7,} ({pct1:>4.1f}%)"
+              f"  gap>=250 {m2:>6,} ({pct2:>4.1f}%) {'FULL' if not needs(b) else ''}")
     print(f"players crawled this run: {processed}   frontier left: "
           f"{sum(len(dq) for dq in buckets.values()):,}")
 
