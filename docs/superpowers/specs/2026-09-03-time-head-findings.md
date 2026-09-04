@@ -1,0 +1,130 @@
+# Findings: what actually matches human think-time
+
+**Date:** 2026-09-03
+**Status:** Measured, committed, reproducible
+**Bears on:** `2026-08-26-bigger-clone-base-time-elo-design.md` (sections 3, 4.2, 5, 9)
+
+Overnight bake-off of every candidate think-time head. Three of the conclusions overturn things
+we believed going in, including two of my own recommendations from earlier the same day.
+
+---
+
+## Setup
+
+- **80 chess.com players**, 317k train / 86k test positions, all 3+0 with clocks.
+- **Split by PLAYER**: 48 train / 12 val / 20 test, disjoint humans. Positions inside a game are
+  not independent - the temporal vector carries that player's own last-5 think-times - so a
+  position- or game-level split would let a head memorise a person's tempo.
+- Every head trains on **identical frozen features** from `base_300k_best.pt`, so differences are
+  the head and nothing else.
+- Hyperparameters chosen on **val**, never on test. Each method judged by its own native loss
+  during selection: a shared learning rate would rig the comparison, because RPS gradients are far
+  smaller in magnitude than cross-entropy's.
+- **Null baselines throughout.** Any head that cannot beat "sample from a histogram" has learned
+  nothing, however good its distribution match looks.
+
+Reproduce: `scripts/timehead_features.py` -> `timehead_bakeoff.py` -> `timehead_readout.py` ->
+`timehead_calibrate.py` -> `timehead_perplayer.py`.
+
+---
+
+## 1. The readout dominates. The head barely matters.
+
+Real: **snap(<1s) 17.2%, tail(>10s) 5.54%**
+
+| readout | W1 per player | snap% | tail% | r |
+|---|---|---|---|---|
+| **sampled** | 0.375 - 0.402 | 19-21% | 4.9-6.1% | ~0.31 |
+| **E[t]** | 0.962 - 1.050 | 6.8-9.9% | 0.8-1.5% | ~0.55 |
+
+Sampling versus E[t] changes distribution match by **2.6x**. Head family and loss change it by
+~7%, and the sampled 95% CIs overlap across every head, so that ranking is not significant.
+
+**This overturns section 3 of the 08-26 spec.** That spec adopts a bucket head because the MDN
+"hedges into the middle, under-snaps and kills the tail". But the bake-off behind that decision
+compared the MDN's **E[t]** against the bucket head's **sampled** draws - two changes at once,
+credited to one of them. Sampled, the MDN ties the best bucket head (W1 0.375). And under E[t]
+*every* bucket head collapses exactly the same way: 7-10% snap against a real 17.2%, ~1% tail
+against a real 5.5%.
+
+The hedge is a property of taking a conditional mean, not of the mixture-of-log-normals.
+
+ChessMimic (arXiv 2606.04473) uses E[t] at inference and reports r=0.41, below Allie's plain
+scalar head at r=0.70. This is very likely the same effect in the published work.
+
+## 2. Two of my own recommendations were wrong
+
+Both came from the literature reading earlier that day, and both are empirically inert or harmful.
+
+- **RPS instead of CE/Brier: no benefit.** CE 1.2632, Brier 1.2650, RPS 1.2677. RPS does not even
+  win its own metric. The ordinal argument is correct in principle - CE and Brier really do score
+  a 3s prediction identically to a 40s one when the truth is 4s - and it makes no measurable
+  difference here.
+- **Inverse-frequency balancing (Balanced DRPS): actively harmful.** W1 0.655-0.690 against 0.375
+  unbalanced, consistent across every learning rate and both caps on validation.
+
+Keep cross-entropy. It is the simplest and marginally the best.
+
+## 3. Distribution-match metrics are gameable by a lookup table
+
+The population head under-disperses badly. It ranks people well (per-player snap rate r=0.77,
+surviving a time-pressure control at clock>120s: r=0.69) but captures only **39% of the spread** -
+real 5.5-33.8%, predicted 12.4-26.4%. Everyone's clone drifts toward the average human, which is
+the opposite of what clonefish sells.
+
+Fitting **two scalars per player** (snap-logit bias + temperature) on their earlier games and
+scoring on their later games fixes the scale:
+
+| | W1 | snap slope |
+|---|---|---|
+| population head | 0.492 | 0.32 |
+| + 2 per-player scalars | **0.315** (-36%) | **0.90** |
+
+Better for 15/18 players. Slope 0.90 means it now tracks the person rather than the mean.
+
+**And then the null deflates it.** Against simply resampling that player's own past think-times,
+ignoring the position entirely:
+
+| | W1 | r |
+|---|---|---|
+| calibrated model | 0.315 | **0.323** |
+| per-player marginal null | 0.336 | 0.006 |
+| model wins W1 for | 9/18 players | - |
+
+On distribution match the model beats a lookup table for **half the players** - a coin flip. The
+36% gain is almost entirely "learn the person's marginal histogram", which needs no model.
+
+What the model actually contributes is the **conditional** part: knowing which positions deserve
+time. The null cannot do that at all (r=0.006).
+
+## 4. What this means
+
+**Change the readout, not the head.** Sampling is the entire measured win. That is one line at
+inference and does not require the architecture change in section 4.2.
+
+**Section 9.2's acceptance criteria cannot stand alone.** Judging the time head by "snap-rate
+within +-5pp and tail-rate within +-2pp" is passable by a lookup table with zero positional
+understanding. Report conditional skill alongside: **r at E[t]** for comparability with Allie and
+ChessMimic, and distribution match from **sampled** draws, with the per-player marginal null
+printed next to both.
+
+**For clonefish, timing splits in two.** Distribution realism is cheap - calibrate to the user's
+own histogram, two scalars, no training. Position-aware timing is what the model buys, and it is
+the part worth improving.
+
+**The open question, now running.** Is conditional skill (r ~0.55 at E[t]) limited by data or by
+the frozen base features? Extending the cache from 80 to 400 players to plot r against training
+size. A plateau means the base representation is the ceiling and a better time head cannot help;
+continued improvement means the lever is data.
+
+## 5. Honest limits
+
+- 80 players, 20 in test, one site (chess.com), one time control (3+0).
+- All heads sit on frozen features from the existing 19.5M base. A different backbone could
+  reorder the head comparison, though it would not change the readout finding, which is a
+  property of conditional means rather than of any particular model.
+- The per-player calibration used ~70% of each player's games. Whether two scalars suffice for a
+  user with 50 games is untested.
+- Sampled correlation (~0.31) is necessarily below E[t] correlation (~0.55): a single draw is
+  noisier than a conditional mean by construction. That is arithmetic, not a defect, and it is why
+  both must be reported.
