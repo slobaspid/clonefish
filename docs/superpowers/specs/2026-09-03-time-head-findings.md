@@ -112,12 +112,35 @@ printed next to both.
 own histogram, two scalars, no training. Position-aware timing is what the model buys, and it is
 the part worth improving.
 
-**The open question, now running.** Is conditional skill (r ~0.55 at E[t]) limited by data or by
-the frozen base features? Extending the cache from 80 to 400 players to plot r against training
-size. A plateau means the base representation is the ceiling and a better time head cannot help;
-continued improvement means the lever is data.
+## 5. Answered: the base is the ceiling
 
-## 5. Honest limits
+Same head, fixed test humans, growing number of training humans:
+
+| players | positions | r@E[t] | change |
+|---|---|---|---|
+| 12 | 77,493 | 0.5425 | |
+| 24 | 144,014 | 0.5611 | +0.0186 |
+| 48 | 289,741 | 0.5697 | +0.0086 |
+| 96 | 572,639 | 0.5744 | +0.0047 |
+| 192 | 1,161,161 | 0.5748 | +0.0004 |
+| 288 | 1,781,465 | 0.5753 | +0.0005 |
+
+Tripling the humans past 96 moves conditional skill by **+0.0009**. RPS is flat too. The time
+head saturates at roughly 100 players / 0.5M positions.
+
+So the ceiling is the **frozen 19.5M base representation** - not the head, not the loss, not the
+amount of timing data. Three consequences:
+
+- **More corpus does not buy better timing.** It may still buy move-matching, which is a separate
+  question, but the time head stops learning at ~0.5M positions.
+- **No time-head architecture can help either**, consistent with all eight heads landing within 7%
+  of each other.
+- The only remaining lever for position-aware timing is **a better backbone**.
+
+For reference this ceiling (r 0.575) sits between ChessMimic's 0.41 and Allie's 0.70 - and
+Allie's backbone is far larger than ours.
+
+## 6. Honest limits
 
 - 80 players, 20 in test, one site (chess.com), one time control (3+0).
 - All heads sit on frozen features from the existing 19.5M base. A different backbone could
