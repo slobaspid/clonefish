@@ -256,16 +256,20 @@ def train_head(kind, loss_name, Xtr, ttr, ctr, balanced, steps, bs, lr, seed, lo
     n = len(Xtr)
     # Features are small enough to live on the GPU for the whole sweep; moving them once
     # instead of per batch is the difference between hours and minutes across 27 runs.
+    # Held in half: the cache is float16 on disk, so this loses nothing and doubles how many
+    # players fit in 6GB of VRAM.
     try:
-        Xg, tg, cg, yg = (Xtr.to(DEV), ttr.to(DEV), ctr.to(DEV), ytr.to(DEV))
+        Xg = Xtr.to(DEV, dtype=torch.float16)
+        tg, cg, yg = ttr.to(DEV), ctr.to(DEV), ytr.to(DEV)
         bwg = bw.to(DEV) if bw is not None else None
     except RuntimeError:                     # not enough VRAM - fall back to per-batch transfer
+        torch.cuda.empty_cache() if DEV == "cuda" else None
         Xg, tg, cg, yg, bwg = Xtr, ttr, ctr, ytr, bw
 
     g = torch.Generator(device=Xg.device).manual_seed(seed)
     for step in range(steps):
         i = torch.randint(0, n, (bs,), device=Xg.device, generator=g)
-        xb = Xg[i].to(DEV)
+        xb = Xg[i].to(DEV).float()
         if kind == "mdn":
             pi, mu, sg = head(xb)
             loss = mdn_nll_per_sample(pi, mu, sg, tg[i].to(DEV)).mean()
