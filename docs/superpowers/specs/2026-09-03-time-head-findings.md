@@ -175,6 +175,34 @@ pace prior overcorrects and kills the tail; do not use it.
 This makes **two** readout fixes that together are worth more than any head change measured here:
 sample rather than average, and clock yourself rather than trusting the opponent's clock.
 
+
+### 6b. Aggregate drift is a vacuous metric; the per-game floor is 15.1s
+
+Chasing the drift number further killed it entirely, and the sequence is worth recording because
+four successive claims failed and one survived.
+
+| claim | status |
+|---|---|
+| +2.5s/game systematic drift | **artifact** - 4 training players leaked into a 20-player test set |
+| +0.1s drift on clean data | **vacuous** - a single global constant scores -0.07s |
+| model 3.4x worse than a trivial last-5 rule | **wrong** - that rule sums a lagged copy of the truth |
+| model underuses the recent-history signal | **wrong** - feeding last-5 explicitly: 17.6s -> 17.8s |
+| 12.8% of games exceed the 180s clock | **holds**, with a free fix |
+| per-game total error 18.0s vs a 15.1s floor | **holds** - ~20% headroom, and that is all |
+
+Aggregate drift is a mean-vs-mean comparison, so any calibrated predictor passes it. Predicting
+every move as one global constant - ignoring the player and the position entirely - gets -0.07s,
+indistinguishable from the model's +0.06s. Never report aggregate drift as evidence.
+
+The discriminating metric is per-game total absolute error, and it has a hard floor. Per-move
+residuals have sd **3.22s** and lag-1 autocorrelation **+0.033** (i.e. they compound
+independently), so over ~36 moves a game they accumulate to **15.1s regardless of the model**.
+The head sits at 18.0s: 1.20x the floor.
+
+The trivial "average of your previous 5 moves" rule scores 5.4s only because summing a lagged
+moving average of a sequence reproduces that sequence's sum by construction. It reads the realized
+values it is summing, so it is not a predictor and not deployable.
+
 ## 7. Honest limits
 
 - 80 players, 20 in test, one site (chess.com), one time control (3+0).
