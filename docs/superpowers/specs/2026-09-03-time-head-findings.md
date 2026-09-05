@@ -140,7 +140,42 @@ amount of timing data. Three consequences:
 For reference this ceiling (r 0.575) sits between ChessMimic's 0.41 and Allie's 0.70 - and
 Allie's backbone is far larger than ours.
 
-## 6. Honest limits
+
+## 6. Clock overrun: the one real defect, and a free fix
+
+Chasing an apparent "+2.5s/game systematic drift" found that the drift itself was an artifact -
+the drift scripts re-derived their test set with `permutation(len(players))` after the cache grew
+80 -> 384, so 4 of 20 "held-out" players were training players. On the correct held-out set the
+drift is **+0.1s/game**. The tell was a human snap rate of 24.9% where this document reports 17.2%.
+The split is now pinned by name in `cache/timehead_split.json`.
+
+What survives on clean data is more serious:
+
+| mode | total/game | drift | **FLAG %** | snap% | tail% | W1 |
+|---|---|---|---|---|---|---|
+| human | 121.8s | | 0.00% | 17.2% | 5.54% | |
+| teacher-forced | 123.2s | +1.4s | **12.78%** | 18.7% | 5.61% | 0.068 |
+| self-clocked | 120.5s | -1.3s | **0.08%** | 20.9% | 5.53% | 0.073 |
+| self+pace | 113.0s | -8.8s | 0.00% | 18.9% | 4.00% | 0.278 |
+
+**In 12.8% of games the model's think-times sum past the 180s it has.** The per-move clock mask
+stops any single move exceeding the clock, but nothing tracks cumulative spend, so independent
+draws from a heavy tail occasionally run away.
+
+**Humans budget; the model does not.** Controlling for ply count and player identity,
+corr(first-half spend, second-half spend) is **-0.170** for humans and **+0.004** for the model. A
+human who spends lavishly early spends 8.1s less later; the model pulls back only 4.1s, and that
+is borrowed from reading the human's depleted clock rather than learned.
+
+**The fix is free:** mask against the model's own remaining clock instead of the human's. Flag rate
+12.78% -> 0.08%, drift -1.3s, distribution match unchanged and the tail lands closer to human. Same
+category as "sample, don't average" - a readout change, not an architecture change. The explicit
+pace prior overcorrects and kills the tail; do not use it.
+
+This makes **two** readout fixes that together are worth more than any head change measured here:
+sample rather than average, and clock yourself rather than trusting the opponent's clock.
+
+## 7. Honest limits
 
 - 80 players, 20 in test, one site (chess.com), one time control (3+0).
 - All heads sit on frozen features from the existing 19.5M base. A different backbone could
@@ -148,6 +183,9 @@ Allie's backbone is far larger than ours.
   property of conditional means rather than of any particular model.
 - The per-player calibration used ~70% of each player's games. Whether two scalars suffice for a
   user with 50 games is untested.
+- The clock-overrun fix is measured with teacher-forced FEATURES: only the mask is
+  self-consistent, since the cached pooled vectors still encode the human's real clock. A
+  full free-running simulation needs the base model re-run per ply.
 - Sampled correlation (~0.31) is necessarily below E[t] correlation (~0.55): a single draw is
   noisier than a conditional mean by construction. That is arithmetic, not a defect, and it is why
   both must be reported.
