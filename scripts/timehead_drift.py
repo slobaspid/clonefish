@@ -36,6 +36,22 @@ BO = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(BO)
 DEV = BO.DEV
 
+def load_split_players(cache_dir, split_path="cache/timehead_split.json", which="test"):
+    """Load exactly the players a head was held out from, BY NAME.
+
+    Never select the test set with permutation(len(players)): the cache grows, the permutation
+    changes, and the "held-out" set silently becomes partly training data. That happened - 4 of
+    20 supposedly-held-out players in the first drift run were training players.
+    """
+    import json as _json
+    names = set(_json.load(open(split_path, encoding="utf-8"))[which])
+    got = [d for d in BO.load_players(cache_dir) if d["name"] in names]
+    missing = names - {d["name"] for d in got}
+    if missing:
+        raise SystemExit(f"split lists {len(missing)} players not in the cache: {sorted(missing)[:3]}")
+    return got
+
+
 BUDGET = 180.0
 
 
@@ -49,10 +65,7 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
 
-    players = BO.load_players(args.cache)
-    # Same split the bake-off trained under, so these are humans the head never saw.
-    order = np.random.default_rng(args.seed).permutation(len(players))
-    te = [players[i] for i in order[:args.test_players]]
+    te = load_split_players(args.cache)
 
     Xp, _, _, _ = BO.stack(te)
     head = BO.make_head(args.kind, Xp.shape[1]).to(DEV)
