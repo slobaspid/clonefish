@@ -10,3 +10,7 @@ checkpoints/
 .claude/settings.local.json
 sahformer_engine.bat
 selfplay*.html
+
+# Kaggle upload artifacts (regenerate with scripts/kaggle_train.py + build)
+kaggle_train_bundle/
+kaggle_train_bundle.zip
