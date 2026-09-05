@@ -14,3 +14,5 @@ selfplay*.html
 # Kaggle upload artifacts (regenerate with scripts/kaggle_train.py + build)
 kaggle_train_bundle/
 kaggle_train_bundle.zip
+data/shards_v3/
+overnight.log
