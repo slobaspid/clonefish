@@ -104,7 +104,12 @@ def main():
     ap.add_argument("--blocks", type=int, default=12)
     ap.add_argument("--heads", type=int, default=8)
     ap.add_argument("--steps", type=int, default=400000)
-    ap.add_argument("--bs", type=int, default=256)
+    ap.add_argument("--bs", type=int, default=256, help="micro-batch that must fit in VRAM")
+    ap.add_argument("--accum", type=int, default=4,
+                    help="gradient accumulation; EFFECTIVE batch = bs * accum. The 08-26 recipe "
+                         "specifies batch 512 with lr 4e-5, and a 6GB card cannot hold 512 - "
+                         "accumulating keeps the agreed recipe instead of improvising a new lr "
+                         "for a smaller batch, which is how this repo diverged before (3ab430d).")
     ap.add_argument("--lr", type=float, default=4e-5)
     ap.add_argument("--warmup", type=int, default=1000)
     ap.add_argument("--w-policy", type=float, default=1.0)
@@ -124,7 +129,8 @@ def main():
              if os.path.isdir(args.shards) else sorted(glob.glob(args.shards)))
     if not paths:
         raise SystemExit(f"no shards matched {args.shards}")
-    print(f"{len(paths)} shards | device {DEV}", flush=True)
+    print(f"{len(paths)} shards | device {DEV} | micro-batch {args.bs} x accum {args.accum} "
+          f"= EFFECTIVE BATCH {args.bs * args.accum}", flush=True)
 
     mc = ModelConfig(dim_vit=args.dim, num_blocks=args.blocks, num_heads=args.heads)
     model = build_model("full", mc).to(DEV)
@@ -159,34 +165,42 @@ def main():
 
     stream = shard_stream(paths, args.bs, seed=args.seed + step0)
     t0, acc, seen = time.time(), 0.0, 0
+    skipped = [0]
     model.train()
     for step in range(step0 + 1, args.steps + 1):
         for gp in opt.param_groups:                       # linear warmup
             gp["lr"] = args.lr * min(1.0, step / max(args.warmup, 1))
-        b = to_dev(next(stream))
-        with torch.autocast("cuda", enabled=(DEV == "cuda")):
-            out = model(b)
-            tgt = move_target_index(b["move_from"], b["move_to"], b["promo"])
-            pol = F.cross_entropy(out["move_logits"].float(), tgt)
-            val = F.cross_entropy(out["value_logits"].float(), b["result"])
-            pi, mu, sg = out["mdn"]
-            from sahformer.model.heads import mdn_nll
-            tim = mdn_nll(pi.float(), mu.float(), sg.float(), b["think_time"])
-            elo = F.smooth_l1_loss(elo_head(out["pooled"].float()),
-                                   (b["elo_raw"] - 1500.0) / 500.0)
-            loss = (args.w_policy * pol + args.w_value * val +
-                    args.w_time * tim + args.w_elo * elo)
         opt.zero_grad(set_to_none=True)
-        scaler.scale(loss).backward()
+        for micro in range(args.accum):
+            b = to_dev(next(stream))
+            with torch.autocast("cuda", enabled=(DEV == "cuda")):
+                out = model(b)
+                tgt = move_target_index(b["move_from"], b["move_to"], b["promo"])
+                pol = F.cross_entropy(out["move_logits"].float(), tgt)
+                val = F.cross_entropy(out["value_logits"].float(), b["result"])
+                pi, mu, sg = out["mdn"]
+                from sahformer.model.heads import mdn_nll
+                tim = mdn_nll(pi.float(), mu.float(), sg.float(), b["think_time"])
+                elo = F.smooth_l1_loss(elo_head(out["pooled"].float()),
+                                       (b["elo_raw"] - 1500.0) / 500.0)
+                loss = (args.w_policy * pol + args.w_value * val +
+                        args.w_time * tim + args.w_elo * elo)
+            # scale so the accumulated gradient equals a true batch of bs*accum
+            scaler.scale(loss / args.accum).backward()
+            if micro == 0:
+                acc += float((out["move_logits"].argmax(-1) == tgt).float().mean()); seen += 1
         scaler.unscale_(opt)
-        torch.nn.utils.clip_grad_norm_(params, args.grad_clip)
-        scaler.step(opt); scaler.update()
-
-        acc += float((out["move_logits"].argmax(-1) == tgt).float().mean()); seen += 1
+        gnorm = torch.nn.utils.clip_grad_norm_(params, args.grad_clip)
+        if torch.isfinite(gnorm):
+            scaler.step(opt)
+        else:
+            skipped[0] += 1              # NaN batch: drop the step rather than poison the weights
+        scaler.update()
         if step % args.log_every == 0:
             rec = {"step": step, "loss": float(loss), "policy": float(pol),
                    "value": float(val), "time": float(tim), "elo": float(elo),
-                   "move_acc": acc / max(seen, 1), "elapsed": round(time.time() - t0, 1)}
+                   "move_acc": acc / max(seen, 1), "skipped": skipped[0],
+                   "elapsed": round(time.time() - t0, 1)}
             hist.append(rec); acc, seen = 0.0, 0
             print(f"step {step:>7} | loss {rec['loss']:.4f} pol {rec['policy']:.4f} "
                   f"move_acc {rec['move_acc']*100:.2f}% | {rec['elapsed']:.0f}s", flush=True)
