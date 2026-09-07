@@ -94,6 +94,34 @@ def to_dev(b):
     return out
 
 
+@torch.no_grad()
+def heldout_top1(model, val_paths, bs=256, max_positions=40000):
+    """Top-1 move match on shards the model never trains on."""
+    if not val_paths:
+        return float("nan")
+    model.eval()
+    hit = tot = 0
+    for p in val_paths:
+        with np.load(p) as z:
+            d = {k: z[k] for k in FIELDS}
+        n = len(d["think_time"])
+        for s in range(0, n, bs):
+            j = slice(s, min(s + bs, n))
+            b = {k: torch.from_numpy(np.ascontiguousarray(d[k][j])).float().to(DEV) for k in KEYS}
+            with torch.autocast("cuda", enabled=(DEV == "cuda")):
+                lg = model(b)["move_logits"].float()
+            t = move_target_index(torch.from_numpy(np.ascontiguousarray(d["move_from"][j])),
+                                  torch.from_numpy(np.ascontiguousarray(d["move_to"][j])),
+                                  torch.from_numpy(np.ascontiguousarray(d["promo"][j]))).to(DEV)
+            hit += int((lg.argmax(-1) == t).sum()); tot += len(t)
+            if tot >= max_positions:
+                break
+        if tot >= max_positions:
+            break
+    model.train()
+    return 100.0 * hit / max(tot, 1)
+
+
 def newest_ckpt(out, extra=()):
     """Newest checkpoint in `out`, else in any `extra` dir.
 
@@ -129,6 +157,13 @@ def main():
     ap.add_argument("--w-elo", type=float, default=0.05)
     ap.add_argument("--save-every", type=int, default=2000)
     ap.add_argument("--log-every", type=int, default=200)
+    ap.add_argument("--val-shards", type=int, default=8,
+                    help="shards reserved from training and used for held-out top-1")
+    ap.add_argument("--eval-every", type=int, default=2000)
+    ap.add_argument("--keep-every", type=int, default=10000,
+                    help="also keep a NUMBERED checkpoint this often. last.pt is overwritten, so "
+                         "without this there is no history of intermediate models and no way to "
+                         "measure a held-out trajectory after the fact.")
     ap.add_argument("--grad-clip", type=float, default=3.5)
     ap.add_argument("--resume-dirs", nargs="*", default=[],
                     help="extra dirs to search for a checkpoint (previous Kaggle outputs)")
@@ -140,8 +175,11 @@ def main():
              if os.path.isdir(args.shards) else sorted(glob.glob(args.shards)))
     if not paths:
         raise SystemExit(f"no shards matched {args.shards}")
-    print(f"{len(paths)} shards | device {DEV} | micro-batch {args.bs} x accum {args.accum} "
-          f"= EFFECTIVE BATCH {args.bs * args.accum}", flush=True)
+    val_paths = paths[-args.val_shards:] if args.val_shards > 0 else []
+    paths = paths[:-args.val_shards] if args.val_shards > 0 else paths
+    print(f"{len(paths)} train shards (+{len(val_paths)} held out) | device {DEV} | "
+          f"micro-batch {args.bs} x accum {args.accum} = EFFECTIVE BATCH {args.bs * args.accum}",
+          flush=True)
 
     mc = ModelConfig(dim_vit=args.dim, num_blocks=args.blocks, num_heads=args.heads)
     model = build_model("full", mc).to(DEV)
@@ -215,9 +253,16 @@ def main():
             hist.append(rec); acc, seen = 0.0, 0
             print(f"step {step:>7} | loss {rec['loss']:.4f} pol {rec['policy']:.4f} "
                   f"move_acc {rec['move_acc']*100:.2f}% | {rec['elapsed']:.0f}s", flush=True)
+        if args.eval_every and step % args.eval_every == 0:
+            v = heldout_top1(model, val_paths)
+            hist.append({"step": step, "heldout_top1": v})
+            print(f"  HELD-OUT top-1 {v:.2f}%  at step {step:,}", flush=True)
         if step % args.save_every == 0:
             save(step)
             print(f"  checkpoint saved at step {step:,}", flush=True)
+        if args.keep_every and step % args.keep_every == 0:
+            save(step, tag=f"step_{step:07d}")
+            print(f"  kept numbered checkpoint step_{step:07d}.pt", flush=True)
     save(args.steps)
     print("done", flush=True)
 
