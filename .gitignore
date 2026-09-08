@@ -16,3 +16,5 @@ kaggle_train_bundle/
 kaggle_train_bundle.zip
 data/shards_v3/
 overnight.log
+remote_bundle/
+remote_bundle.tar.gz
