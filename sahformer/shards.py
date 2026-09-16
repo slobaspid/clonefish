@@ -20,6 +20,9 @@ def records_to_arrays(records):
         "promo": np.zeros(n, np.int8),
         "result": np.zeros(n, np.int8),
         "think_time": np.zeros(n, np.float32),
+        "player_id": np.zeros(n, np.int64),   # the mover; lets a person's games be pulled back out
+        "date": np.zeros(n, np.int32),        # YYYYMMDD; lets them be ordered -> rating trajectory
+        "site": np.zeros(n, np.int8),         # rating scales differ per platform
     }
     for i, r in enumerate(records):
         out["board"][i] = r.board
@@ -33,6 +36,9 @@ def records_to_arrays(records):
         out["promo"][i] = r.promo
         out["result"][i] = r.result
         out["think_time"][i] = r.think_time
+        out["player_id"][i] = r.player_id
+        out["date"][i] = r.date
+        out["site"][i] = r.site
     return out
 
 def balance_indices(elo_self: np.ndarray, seed: int = 0) -> np.ndarray:

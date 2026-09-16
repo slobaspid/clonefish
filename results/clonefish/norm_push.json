@@ -1,0 +1,242 @@
+{
+ "VEGETAL": {
+  "real": {
+   "off_norm%": 44.4,
+   "norm_surprise": 1.3251,
+   "n": 27145
+  },
+  "clone": {
+   "0": {
+    "off_norm%": 44.41,
+    "norm_surprise": 1.2089,
+    "n": 1101,
+    "se_off": 1.5
+   },
+   "50": {
+    "off_norm%": 42.99,
+    "norm_surprise": 1.199,
+    "n": 1333,
+    "se_off": 1.36
+   },
+   "100": {
+    "off_norm%": 44.55,
+    "norm_surprise": 1.3619,
+    "n": 1212,
+    "se_off": 1.43
+   },
+   "150": {
+    "off_norm%": 48.48,
+    "norm_surprise": 1.4165,
+    "n": 1155,
+    "se_off": 1.47
+   },
+   "200": {
+    "off_norm%": 48.25,
+    "norm_surprise": 1.5103,
+    "n": 1146,
+    "se_off": 1.48
+   }
+  },
+  "best_push": 100
+ },
+ "kpowe52": {
+  "real": {
+   "off_norm%": 48.56,
+   "norm_surprise": 1.4997,
+   "n": 23855
+  },
+  "clone": {
+   "0": {
+    "off_norm%": 41.65,
+    "norm_surprise": 1.2204,
+    "n": 1222,
+    "se_off": 1.41
+   },
+   "50": {
+    "off_norm%": 46.71,
+    "norm_surprise": 1.3191,
+    "n": 1368,
+    "se_off": 1.35
+   },
+   "100": {
+    "off_norm%": 48.8,
+    "norm_surprise": 1.5805,
+    "n": 1377,
+    "se_off": 1.35
+   },
+   "150": {
+    "off_norm%": 56.26,
+    "norm_surprise": 1.9035,
+    "n": 1374,
+    "se_off": 1.34
+   },
+   "200": {
+    "off_norm%": 55.3,
+    "norm_surprise": 1.9109,
+    "n": 1340,
+    "se_off": 1.36
+   }
+  },
+  "best_push": 100
+ },
+ "OKENITE": {
+  "real": {
+   "off_norm%": 42.51,
+   "norm_surprise": 1.2564,
+   "n": 27629
+  },
+  "clone": {
+   "0": {
+    "off_norm%": 39.74,
+    "norm_surprise": 1.0944,
+    "n": 1394,
+    "se_off": 1.31
+   },
+   "50": {
+    "off_norm%": 43.99,
+    "norm_surprise": 1.2857,
+    "n": 1198,
+    "se_off": 1.43
+   },
+   "100": {
+    "off_norm%": 45.27,
+    "norm_surprise": 1.3574,
+    "n": 1162,
+    "se_off": 1.46
+   },
+   "150": {
+    "off_norm%": 43.78,
+    "norm_surprise": 1.4259,
+    "n": 1005,
+    "se_off": 1.56
+   },
+   "200": {
+    "off_norm%": 45.98,
+    "norm_surprise": 1.4085,
+    "n": 1057,
+    "se_off": 1.53
+   }
+  },
+  "best_push": 50
+ },
+ "ARQZITRO": {
+  "real": {
+   "off_norm%": 45.57,
+   "norm_surprise": 1.4011,
+   "n": 25256
+  },
+  "clone": {
+   "0": {
+    "off_norm%": 40.76,
+    "norm_surprise": 1.1427,
+    "n": 1136,
+    "se_off": 1.46
+   },
+   "50": {
+    "off_norm%": 40.94,
+    "norm_surprise": 1.176,
+    "n": 1380,
+    "se_off": 1.32
+   },
+   "100": {
+    "off_norm%": 41.7,
+    "norm_surprise": 1.2219,
+    "n": 1314,
+    "se_off": 1.36
+   },
+   "150": {
+    "off_norm%": 44.67,
+    "norm_surprise": 1.3462,
+    "n": 1238,
+    "se_off": 1.41
+   },
+   "200": {
+    "off_norm%": 46.59,
+    "norm_surprise": 1.4512,
+    "n": 1350,
+    "se_off": 1.36
+   }
+  },
+  "best_push": 200
+ },
+ "AlexDC": {
+  "real": {
+   "off_norm%": 41.61,
+   "norm_surprise": 1.2377,
+   "n": 20808
+  },
+  "clone": {
+   "0": {
+    "off_norm%": 35.07,
+    "norm_surprise": 1.0463,
+    "n": 921,
+    "se_off": 1.57
+   },
+   "50": {
+    "off_norm%": 37.51,
+    "norm_surprise": 1.0662,
+    "n": 1037,
+    "se_off": 1.5
+   },
+   "100": {
+    "off_norm%": 42.91,
+    "norm_surprise": 1.2063,
+    "n": 1114,
+    "se_off": 1.48
+   },
+   "150": {
+    "off_norm%": 37.9,
+    "norm_surprise": 1.1802,
+    "n": 979,
+    "se_off": 1.55
+   },
+   "200": {
+    "off_norm%": 44.72,
+    "norm_surprise": 1.3484,
+    "n": 937,
+    "se_off": 1.62
+   }
+  },
+  "best_push": 100
+ },
+ "Alexei_Soroka": {
+  "real": {
+   "off_norm%": 44.82,
+   "norm_surprise": 1.3431,
+   "n": 24813
+  },
+  "clone": {
+   "0": {
+    "off_norm%": 37.48,
+    "norm_surprise": 1.0595,
+    "n": 1022,
+    "se_off": 1.51
+   },
+   "50": {
+    "off_norm%": 43.92,
+    "norm_surprise": 1.1801,
+    "n": 1266,
+    "se_off": 1.39
+   },
+   "100": {
+    "off_norm%": 40.88,
+    "norm_surprise": 1.1972,
+    "n": 1245,
+    "se_off": 1.39
+   },
+   "150": {
+    "off_norm%": 43.12,
+    "norm_surprise": 1.2946,
+    "n": 1148,
+    "se_off": 1.46
+   },
+   "200": {
+    "off_norm%": 47.72,
+    "norm_surprise": 1.4253,
+    "n": 1228,
+    "se_off": 1.43
+   }
+  },
+  "best_push": 150
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "VEGETAL:player": {
+  "auc_real_vs_generated": 0.4986751614011877,
+  "auc_position_only": 0.5380781771797629,
+  "auc_control": 0.5256184657835277,
+  "n_per_side": 5723,
+  "gen": "results/clonefish/VEGETAL_CLONE_v3.pgn",
+  "side": "player"
+ },
+ "kpowe52:player": {
+  "auc_real_vs_generated": 0.5643370164321548,
+  "auc_position_only": 0.5710284662462812,
+  "auc_control": 0.5165356924019608,
+  "n_per_side": 6484,
+  "gen": "results/clonefish/kpowe52_CLONE_v3.pgn",
+  "side": "player"
+ },
+ "OKENITE:player": {
+  "auc_real_vs_generated": 0.6216614698263456,
+  "auc_position_only": 0.6128945601074547,
+  "auc_control": 0.4934116629302742,
+  "n_per_side": 6403,
+  "gen": "results/clonefish/OKENITE_CLONE_v3.pgn",
+  "side": "player"
+ }
+}

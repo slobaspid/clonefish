@@ -32,11 +32,15 @@ def _sample_think_time(mdn, rng, think_temp=1.0):
     return float(min(max(t, 0.0), 180.0))
 
 @torch.no_grad()
-def self_play(model, max_plies=200, elo=1500, temperature=1.0,
+def self_play(model, max_plies=200, elo=1500, temperature=1.0, top_p=1.0,
               start_clock=180.0, device="cpu", seed=0, think_temp=1.0,
-              search=False, search_cfg=None):
+              search=False, search_cfg=None, adapter=None):
     """Model plays both sides. Yields one dict per ply (the move it's about to play,
-    its sampled think-time, and both clocks). Ends on game over, ply cap, or a flag."""
+    its sampled think-time, and both clocks). Ends on game over, ply cap, or a flag.
+
+    If `adapter` (a CloneAdapter) is given, the base's move + clock outputs are deviated
+    by it every ply, so the game is played in that person's style and clock rhythm."""
+    from sahformer.clone import apply_clone
     rng = np.random.default_rng(seed)
     model.eval()
     board = chess.Board()
@@ -57,6 +61,8 @@ def self_play(model, max_plies=200, elo=1500, temperature=1.0,
             "temporal": torch.from_numpy(temporal).float().unsqueeze(0).to(device),
         }
         out = model(batch)
+        if adapter is not None:
+            out = apply_clone(out, adapter)
         think = _sample_think_time(out["mdn"], rng, think_temp=think_temp)
         if search:
             scfg = search_cfg or SearchConfig(elo=elo, temperature=temperature)
@@ -74,6 +80,13 @@ def self_play(model, max_plies=200, elo=1500, temperature=1.0,
             else:
                 probs = F.softmax(scores / temperature, dim=-1).detach().cpu().numpy()
                 probs = probs / probs.sum()
+                if top_p < 1.0 and len(probs) > 1:
+                    order = np.argsort(probs)[::-1]                 # best first
+                    csum = np.cumsum(probs[order])
+                    keep = order[: int(np.searchsorted(csum, top_p)) + 1]  # nucleus
+                    trunc = np.zeros_like(probs)
+                    trunc[keep] = probs[keep]
+                    probs = trunc / trunc.sum()                     # drop the absurd tail
                 move = legal[int(rng.choice(len(legal), p=probs))]
 
         clock[mover] -= think

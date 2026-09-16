@@ -1,0 +1,136 @@
+{
+ "name": "VEGETAL",
+ "stage0": false,
+ "zero_second_frac_test": 0.069,
+ "arms": {
+  "a0.0": {
+   "top1": 54.55,
+   "top3": 82.88
+  },
+  "a0.25": {
+   "top1": 56.59,
+   "top3": 83.76
+  },
+  "a0.5": {
+   "top1": 58.56,
+   "top3": 84.71
+  },
+  "a0.75": {
+   "top1": 59.78,
+   "top3": 85.46
+  },
+  "a1.0": {
+   "top1": 59.51,
+   "top3": 85.6
+  }
+ },
+ "dial_picked": {
+  "alpha": 0.75,
+  "top1": 59.78,
+  "top3": 85.46,
+  "d_top1_vs_ft": 0.27,
+  "d_top3_vs_ft": -0.14,
+  "ci_top3_vs_ft": [
+   -0.97,
+   0.75
+  ],
+  "ci_top1_vs_ft": [
+   -0.43,
+   0.98
+  ]
+ },
+ "timing": {
+  "base": {
+   "bucket_nll": 1.8903,
+   "W1log": 0.0589,
+   "snap_sim": 0.113,
+   "snap_real": 0.069,
+   "tank_sim": 0.061,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.401
+  },
+  "base+K4": {
+   "cal(shift,logsig,snapb)": [
+    0.012,
+    0.043,
+    -4.301
+   ],
+   "bucket_nll": 1.8497,
+   "W1log": 0.0433,
+   "snap_sim": 0.091,
+   "snap_real": 0.069,
+   "tank_sim": 0.064,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.374
+  },
+  "ft": {
+   "bucket_nll": 1.9489,
+   "W1log": 0.0392,
+   "snap_sim": 0.057,
+   "snap_real": 0.069,
+   "tank_sim": 0.039,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.414
+  },
+  "ft+K4": {
+   "cal(shift,logsig,snapb)": [
+    0.089,
+    0.114,
+    -1.223
+   ],
+   "bucket_nll": 1.7416,
+   "W1log": 0.0797,
+   "snap_sim": 0.055,
+   "snap_real": 0.069,
+   "tank_sim": 0.065,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.441
+  },
+  "dial": {
+   "bucket_nll": 1.8017,
+   "W1log": 0.0301,
+   "snap_sim": 0.054,
+   "snap_real": 0.069,
+   "tank_sim": 0.045,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.457
+  },
+  "dial+K4": {
+   "cal(shift,logsig,snapb)": [
+    0.046,
+    0.106,
+    -0.775
+   ],
+   "bucket_nll": 1.7752,
+   "W1log": 0.076,
+   "snap_sim": 0.054,
+   "snap_real": 0.069,
+   "tank_sim": 0.065,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.429
+  },
+  "lookup_null(val)": {
+   "bucket_nll": 2.1031,
+   "W1log": 0.2162,
+   "snap_sim": 0.065,
+   "snap_real": 0.069,
+   "tank_sim": 0.14,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.095
+  }
+ }
+}

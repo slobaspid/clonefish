@@ -1,0 +1,97 @@
+{
+ "name": "VEGETAL",
+ "stage0": false,
+ "zero_second_frac_test": 0.069,
+ "arms": {
+  "a0.0": {
+   "top1": 54.55,
+   "top3": 82.88
+  },
+  "a1.0": {
+   "top1": 59.51,
+   "top3": 85.26
+  }
+ },
+ "dial_picked": {
+  "alpha": 1.0,
+  "top1": 59.51,
+  "top3": 85.26,
+  "d_top1_vs_ft": 0.0,
+  "d_top3_vs_ft": 0.0,
+  "ci_top3_vs_ft": [
+   0.0,
+   0.0
+  ],
+  "ci_top1_vs_ft": [
+   0.0,
+   0.0
+  ]
+ },
+ "timing": {
+  "base": {
+   "bucket_nll": 1.8903,
+   "W1log": 0.0589,
+   "snap_sim": 0.113,
+   "snap_real": 0.069,
+   "tank_sim": 0.061,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.401
+  },
+  "base+K4": {
+   "cal(shift,logsig,snapb)": [
+    0.012,
+    0.043,
+    0.0
+   ],
+   "bucket_nll": 1.8918,
+   "W1log": 0.0699,
+   "snap_sim": 0.121,
+   "snap_real": 0.069,
+   "tank_sim": 0.063,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.385
+  },
+  "ft": {
+   "bucket_nll": 1.9803,
+   "W1log": 0.0641,
+   "snap_sim": 0.082,
+   "snap_real": 0.069,
+   "tank_sim": 0.037,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.403
+  },
+  "ft+K4": {
+   "cal(shift,logsig,snapb)": [
+    -0.113,
+    0.185,
+    0.0
+   ],
+   "bucket_nll": 1.9654,
+   "W1log": 0.0965,
+   "snap_sim": 0.111,
+   "snap_real": 0.069,
+   "tank_sim": 0.05,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.387
+  },
+  "lookup_null(val)": {
+   "bucket_nll": 2.1031,
+   "W1log": 0.2162,
+   "snap_sim": 0.065,
+   "snap_real": 0.069,
+   "tank_sim": 0.14,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.095
+  }
+ }
+}

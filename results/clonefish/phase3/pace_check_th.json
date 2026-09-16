@@ -1,0 +1,152 @@
+{
+ "ARQZITRO": {
+  "real": {
+   "bands": [
+    0.87,
+    2.69,
+    3.61,
+    3.21,
+    1.7
+   ],
+   "first30_sum": 70.4,
+   "instant%": 15.0,
+   "10s+%": 2.9
+  },
+  "base": {
+   "bands": [
+    0.76,
+    2.76,
+    3.59,
+    3.12,
+    1.71
+   ],
+   "first30_sum": 69.8,
+   "instant%": 17.8,
+   "10s+%": 3.2
+  },
+  "ftval_ARQZITRO_bucket": {
+   "bands": [
+    1.1,
+    2.96,
+    3.99,
+    3.48,
+    1.88
+   ],
+   "first30_sum": 79.0,
+   "instant%": 11.5,
+   "10s+%": 3.8
+  },
+  "ftval_ARQZITRO_bucket_th": {
+   "bands": [
+    1.11,
+    3.01,
+    4.0,
+    3.54,
+    1.96
+   ],
+   "first30_sum": 79.6,
+   "instant%": 11.4,
+   "10s+%": 4.1
+  }
+ },
+ "AlexDC": {
+  "real": {
+   "bands": [
+    1.47,
+    3.29,
+    3.73,
+    3.2,
+    1.99
+   ],
+   "first30_sum": 82.0,
+   "instant%": 5.2,
+   "10s+%": 3.4
+  },
+  "base": {
+   "bands": [
+    1.88,
+    3.98,
+    4.01,
+    3.08,
+    1.86
+   ],
+   "first30_sum": 95.6,
+   "instant%": 10.1,
+   "10s+%": 5.3
+  },
+  "ftval_AlexDC_bucket": {
+   "bands": [
+    1.81,
+    3.52,
+    3.8,
+    3.18,
+    2.16
+   ],
+   "first30_sum": 88.2,
+   "instant%": 4.4,
+   "10s+%": 3.4
+  },
+  "ftval_AlexDC_bucket_th": {
+   "bands": [
+    1.93,
+    3.67,
+    3.85,
+    3.33,
+    2.25
+   ],
+   "first30_sum": 91.4,
+   "instant%": 4.6,
+   "10s+%": 4.3
+  }
+ },
+ "Alexei_Soroka": {
+  "real": {
+   "bands": [
+    1.87,
+    4.57,
+    4.92,
+    3.47,
+    1.7
+   ],
+   "first30_sum": 110.5,
+   "instant%": 6.0,
+   "10s+%": 5.7
+  },
+  "base": {
+   "bands": [
+    1.65,
+    4.18,
+    4.59,
+    3.27,
+    1.63
+   ],
+   "first30_sum": 101.3,
+   "instant%": 11.3,
+   "10s+%": 6.0
+  },
+  "ftval_Alexei_Soroka_bucket": {
+   "bands": [
+    1.65,
+    4.55,
+    4.87,
+    3.41,
+    1.74
+   ],
+   "first30_sum": 107.9,
+   "instant%": 6.6,
+   "10s+%": 5.5
+  },
+  "ftval_Alexei_Soroka_bucket_th": {
+   "bands": [
+    1.73,
+    4.72,
+    5.25,
+    3.72,
+    1.93
+   ],
+   "first30_sum": 113.9,
+   "instant%": 6.4,
+   "10s+%": 6.5
+  }
+ }
+}

@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>clonefish — play a clone</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
+<style>
+  body { font-family: system-ui, sans-serif; background: #262421; color: #e8e6e3; margin: 0; }
+  .wrap { display: flex; gap: 24px; padding: 24px; flex-wrap: wrap; justify-content: center; }
+  #board { width: min(560px, 92vw); }
+  .panel { width: 320px; display: flex; flex-direction: column; gap: 12px; }
+  .card { background: #312e2b; border-radius: 8px; padding: 12px; }
+  label { font-size: 13px; color: #bab8b5; display: block; margin-bottom: 4px; }
+  select, input, button { font-size: 15px; padding: 7px 10px; border-radius: 6px; border: 1px solid #555; background: #3c3935; color: #eee; }
+  button { cursor: pointer; background: #629924; border: none; font-weight: 600; }
+  button.secondary { background: #4a4743; }
+  .row { display: flex; gap: 8px; align-items: end; }
+  .clock { display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
+  .clock .t { font-family: ui-monospace, monospace; font-size: 30px; padding: 4px 12px; border-radius: 6px; background: #3c3935; }
+  .clock.active .t { background: #e8e6e3; color: #262421; }
+  .clock.low .t { background: #b33430; color: #fff; }
+  #status { min-height: 22px; font-size: 15px; }
+  #moves { font-family: ui-monospace, monospace; font-size: 13px; max-height: 240px; overflow-y: auto; line-height: 1.6; }
+  #moves .think { color: #8fb3de; }
+  #pgn { width: 100%; height: 120px; font-size: 11px; background: #1e1c1a; color: #ccc; border: 1px solid #444; }
+  .result { font-size: 18px; font-weight: 700; color: #f0c674; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div>
+    <div class="clock card" id="clockTop"><span id="nameTop">—</span><span class="t" id="timeTop">3:00</span></div>
+    <div id="board" style="margin:8px 0"></div>
+    <div class="clock card" id="clockBottom"><span id="nameBottom">You</span><span class="t" id="timeBottom">3:00</span></div>
+  </div>
+  <div class="panel">
+    <div class="card">
+      <label>Clone</label>
+      <select id="clone" style="width:100%"></select>
+      <div class="row" style="margin-top:10px">
+        <div><label>You play</label>
+          <select id="color"><option value="random">random</option><option value="white">white</option><option value="black">black</option></select></div>
+        <div><label>Your rating</label><input id="rating" type="number" style="width:90px"></div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="newBtn">New 3+0 game</button>
+        <button id="resignBtn" class="secondary">Resign</button>
+      </div>
+    </div>
+    <div class="card"><div id="status">Loading clones…</div></div>
+    <div class="card"><label>Moves (blue = how long the clone thought)</label><div id="moves"></div></div>
+    <div class="card" id="pgnCard" hidden><label>PGN (with clock times)</label><textarea id="pgn" readonly></textarea></div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<script>
+let S = null, game = new Chess(), board = null, lastFen = null, lastGen = null, pgnShownFor = null;
+
+function fmt(s) {
+  if (s < 10) return s.toFixed(1);
+  const m = Math.floor(s / 60), r = Math.floor(s % 60);
+  return m + ":" + String(r).padStart(2, "0");
+}
+async function api(path, body) {
+  const r = await fetch(path, body === undefined ? {} : {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+  return r.json();
+}
+function myTurn() { return S && S.active && !S.result && S.turn === S.human_color; }
+
+board = Chessboard("board", {
+  draggable: true, position: "start",
+  pieceTheme: "https://lichess1.org/assets/piece/cburnett/{piece}.svg",
+  onDragStart: (src, piece) => {
+    if (!myTurn()) return false;
+    if ((S.human_color === "white") !== piece.startsWith("w")) return false;
+  },
+  onDrop: (from, to) => {
+    const mv = game.move({from, to, promotion: "q"});
+    if (!mv) return "snapback";
+    const uci = from + to + (mv.promotion ? mv.promotion : "");
+    api("/api/move", {uci}).then(render);
+  },
+  onSnapEnd: () => board.position(game.fen()),
+});
+
+function render(s) {
+  S = s;
+  const sel = document.getElementById("clone");
+  if (s.clones && Object.keys(s.clones).length !== sel.options.length) {   // clones finish loading one by one
+    const keep = sel.value;
+    sel.innerHTML = "";
+    for (const [n, i] of Object.entries(s.clones)) {
+      const o = document.createElement("option"); o.value = n; o.textContent = `${n} (~${i.elo}, ${i.games} games)`; sel.appendChild(o);
+    }
+    if (keep && s.clones[keep]) sel.value = keep;
+    document.getElementById("rating").value = s.clones[sel.value].opp_elo;
+  }
+  if (!s.active) {
+    document.getElementById("status").textContent = s.loaded ? "Pick a clone and start a game." : "Loading clones… (about 20 s)";
+    return;
+  }
+  if (s.gen !== lastGen) { lastGen = s.gen; lastFen = null; pgnShownFor = null; document.getElementById("pgnCard").hidden = true;
+    board.orientation(s.human_color); }
+  if (s.fen !== lastFen) { lastFen = s.fen; game.load(s.fen); board.position(s.fen); }
+  const human = s.human_color, clone = human === "white" ? "black" : "white";
+  document.getElementById("nameTop").textContent = s.name + " (clone)";
+  const tTop = s["clock_" + clone], tBot = s["clock_" + human];
+  document.getElementById("timeTop").textContent = fmt(tTop);
+  document.getElementById("timeBottom").textContent = fmt(tBot);
+  document.getElementById("clockTop").className = "clock card" + (s.turn === clone && !s.result ? " active" : "") + (tTop < 10 ? " low" : "");
+  document.getElementById("clockBottom").className = "clock card" + (s.turn === human && !s.result ? " active" : "") + (tBot < 10 ? " low" : "");
+  let html = "", ti = 0, cloneIsWhite = clone === "white";
+  s.san.forEach((m, i) => {
+    const white = i % 2 === 0;
+    if (white) html += `<div>${Math.floor(i / 2) + 1}. `;
+    html += m + " ";
+    if (white === cloneIsWhite && ti < s.clone_thinks.length) html += `<span class="think">(${s.clone_thinks[ti++]}s)</span> `;
+    if (!white) html += "</div>";
+  });
+  const mv = document.getElementById("moves"); mv.innerHTML = html; mv.scrollTop = mv.scrollHeight;
+  const st = document.getElementById("status");
+  if (s.result) {
+    st.innerHTML = `<span class="result">${s.result}</span> — ${s.reason}`;
+    if (pgnShownFor !== s.gen) { pgnShownFor = s.gen;
+      fetch("/api/pgn").then(r => r.text()).then(t => { document.getElementById("pgn").value = t; document.getElementById("pgnCard").hidden = false; }); }
+  } else {
+    st.textContent = s.turn === human ? "Your move" + (s.in_check ? " — you're in check" : "") : `${s.name} is thinking…`;
+  }
+}
+
+document.getElementById("clone").addEventListener("change", e => {
+  if (S && S.clones) document.getElementById("rating").value = S.clones[e.target.value].opp_elo;
+});
+document.getElementById("newBtn").onclick = () => api("/api/new", {
+  name: document.getElementById("clone").value, color: document.getElementById("color").value,
+  rating: document.getElementById("rating").value }).then(s => s.error ? alert(s.error) : render(s));
+document.getElementById("resignBtn").onclick = () => api("/api/resign", {}).then(render);
+
+setInterval(() => api("/api/state").then(render).catch(() => {}), 200);
+</script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+{
+ "VEGETAL": {
+  "ENGINE": {
+   "<5s": {
+    "n": 188,
+    "instant_real": 22.9,
+    "instant_engine": 21.8,
+    "mean_real": 0.94,
+    "mean_engine": 1.03
+   },
+   "5-10s": {
+    "n": 304,
+    "instant_real": 14.5,
+    "instant_engine": 15.1,
+    "mean_real": 1.23,
+    "mean_engine": 1.29
+   },
+   "10-30s": {
+    "n": 1378,
+    "instant_real": 9.7,
+    "instant_engine": 8.7,
+    "mean_real": 1.69,
+    "mean_engine": 1.81
+   },
+   "30-60s": {
+    "n": 2634,
+    "instant_real": 5.8,
+    "instant_engine": 5.1,
+    "mean_real": 2.32,
+    "mean_engine": 2.45
+   }
+  },
+  "OPP+60": {
+   "<5s": {
+    "n": 188,
+    "instant_real": 22.9,
+    "instant_engine": 21.3,
+    "mean_real": 0.94,
+    "mean_engine": 1.02
+   },
+   "5-10s": {
+    "n": 304,
+    "instant_real": 14.5,
+    "instant_engine": 11.8,
+    "mean_real": 1.23,
+    "mean_engine": 1.31
+   },
+   "10-30s": {
+    "n": 1378,
+    "instant_real": 9.7,
+    "instant_engine": 8.9,
+    "mean_real": 1.69,
+    "mean_engine": 1.78
+   },
+   "30-60s": {
+    "n": 2634,
+    "instant_real": 5.8,
+    "instant_engine": 4.6,
+    "mean_real": 2.32,
+    "mean_engine": 2.55
+   }
+  }
+ },
+ "kpowe52": {
+  "ENGINE": {
+   "<5s": {
+    "n": 364,
+    "instant_real": 25.8,
+    "instant_engine": 26.6,
+    "mean_real": 1.01,
+    "mean_engine": 0.95
+   },
+   "5-10s": {
+    "n": 490,
+    "instant_real": 10.0,
+    "instant_engine": 14.7,
+    "mean_real": 1.54,
+    "mean_engine": 1.46
+   },
+   "10-30s": {
+    "n": 1694,
+    "instant_real": 6.6,
+    "instant_engine": 6.8,
+    "mean_real": 2.31,
+    "mean_engine": 2.22
+   },
+   "30-60s": {
+    "n": 2322,
+    "instant_real": 3.1,
+    "instant_engine": 3.8,
+    "mean_real": 3.47,
+    "mean_engine": 3.44
+   }
+  },
+  "OPP+60": {
+   "<5s": {
+    "n": 364,
+    "instant_real": 25.8,
+    "instant_engine": 22.5,
+    "mean_real": 1.01,
+    "mean_engine": 1.1
+   },
+   "5-10s": {
+    "n": 490,
+    "instant_real": 10.0,
+    "instant_engine": 10.0,
+    "mean_real": 1.54,
+    "mean_engine": 1.56
+   },
+   "10-30s": {
+    "n": 1694,
+    "instant_real": 6.6,
+    "instant_engine": 6.0,
+    "mean_real": 2.31,
+    "mean_engine": 2.33
+   },
+   "30-60s": {
+    "n": 2322,
+    "instant_real": 3.1,
+    "instant_engine": 3.4,
+    "mean_real": 3.47,
+    "mean_engine": 3.49
+   }
+  }
+ },
+ "OKENITE": {
+  "ENGINE": {
+   "<5s": {
+    "n": 118,
+    "instant_real": 23.7,
+    "instant_engine": 20.3,
+    "mean_real": 0.97,
+    "mean_engine": 1.1
+   },
+   "5-10s": {
+    "n": 181,
+    "instant_real": 9.9,
+    "instant_engine": 9.9,
+    "mean_real": 1.44,
+    "mean_engine": 1.43
+   },
+   "10-30s": {
+    "n": 1035,
+    "instant_real": 7.1,
+    "instant_engine": 6.4,
+    "mean_real": 1.69,
+    "mean_engine": 1.77
+   },
+   "30-60s": {
+    "n": 2353,
+    "instant_real": 4.9,
+    "instant_engine": 4.7,
+    "mean_real": 2.29,
+    "mean_engine": 2.25
+   }
+  },
+  "OPP+60": {
+   "<5s": {
+    "n": 118,
+    "instant_real": 23.7,
+    "instant_engine": 20.3,
+    "mean_real": 0.97,
+    "mean_engine": 1.08
+   },
+   "5-10s": {
+    "n": 181,
+    "instant_real": 9.9,
+    "instant_engine": 12.7,
+    "mean_real": 1.44,
+    "mean_engine": 1.49
+   },
+   "10-30s": {
+    "n": 1035,
+    "instant_real": 7.1,
+    "instant_engine": 10.0,
+    "mean_real": 1.69,
+    "mean_engine": 1.74
+   },
+   "30-60s": {
+    "n": 2353,
+    "instant_real": 4.9,
+    "instant_engine": 5.7,
+    "mean_real": 2.29,
+    "mean_engine": 2.21
+   }
+  }
+ }
+}

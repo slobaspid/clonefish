@@ -1,0 +1,725 @@
+{
+ "VEGETAL": {
+  "REAL": {
+   "timing": {
+    "n": 3998,
+    "median": 2.0,
+    "mean": 2.96,
+    "instant%": 7.1,
+    "10s+%": 4.8,
+    "p90": 7.0,
+    "clock@20": 127.00000047683716,
+    "clock@30": 82.00000047683716,
+    "clock@40": 50.99999964237213,
+    "under10s_games%": 33.8,
+    "med_think_by_move": [
+     1.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "scramble<5s": {
+     "share%": 1.0,
+     "instant%": 25.6,
+     "mean": 0.79
+    },
+    "scramble5-10s": {
+     "share%": 2.5,
+     "instant%": 21.0,
+     "mean": 1.17
+    },
+    "scramble10-30s": {
+     "share%": 11.1,
+     "instant%": 11.0,
+     "mean": 1.57
+    },
+    "scramble30-60s": {
+     "share%": 15.9,
+     "instant%": 5.8,
+     "mean": 2.52
+    }
+   },
+   "results": {
+    "score%": 41.2,
+    "median_plies": 99.0,
+    "plies_p25_p75": [
+     75.5,
+     120.0
+    ],
+    "resigned%": 20.0,
+    "checkmated%": 21.2,
+    "lost_on_time%": 15.0,
+    "won_opp_resigned%": 7.5,
+    "won_mate%": 2.5,
+    "won_on_time%": 28.8,
+    "draw%": 5.0,
+    "unfinished%": 0.0
+   },
+   "mistakes": {
+    "n": 1726,
+    "ACPL": 66.7,
+    "mistake%": 16.6,
+    "blunder%": 4.0,
+    "blunder%>60s": [
+     3.6,
+     1077
+    ],
+    "blunder%30-60s": [
+     4.9,
+     306
+    ],
+    "blunder%10-30s": [
+     5.3,
+     265
+    ],
+    "blunder%<10s": [
+     1.3,
+     78
+    ]
+   }
+  },
+  "CLONE": {
+   "timing": {
+    "n": 2644,
+    "median": 2.0,
+    "mean": 3.01,
+    "instant%": 6.4,
+    "10s+%": 4.3,
+    "p90": 6.0,
+    "clock@20": 125.99999785423279,
+    "clock@30": 78.00000071525574,
+    "clock@40": 44.50000002980232,
+    "under10s_games%": 30.0,
+    "med_think_by_move": [
+     1.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "scramble<5s": {
+     "share%": 2.3,
+     "instant%": 40.0,
+     "mean": 0.73
+    },
+    "scramble5-10s": {
+     "share%": 2.4,
+     "instant%": 15.9,
+     "mean": 1.17
+    },
+    "scramble10-30s": {
+     "share%": 8.7,
+     "instant%": 7.0,
+     "mean": 1.83
+    },
+    "scramble30-60s": {
+     "share%": 14.2,
+     "instant%": 4.3,
+     "mean": 2.45
+    },
+    "W1log_vs_real": 0.0289
+   },
+   "results": {
+    "score%": 35.8,
+    "median_plies": 86.5,
+    "plies_p25_p75": [
+     65.5,
+     113.0
+    ],
+    "resigned%": 31.7,
+    "checkmated%": 11.7,
+    "lost_on_time%": 16.7,
+    "won_opp_resigned%": 15.0,
+    "won_mate%": 13.3,
+    "won_on_time%": 3.3,
+    "draw%": 8.3,
+    "unfinished%": 0.0
+   },
+   "mistakes": {
+    "n": 1425,
+    "ACPL": 75.2,
+    "mistake%": 18.5,
+    "blunder%": 5.0,
+    "blunder%>60s": [
+     5.0,
+     955
+    ],
+    "blunder%30-60s": [
+     5.6,
+     234
+    ],
+    "blunder%10-30s": [
+     5.0,
+     159
+    ],
+    "blunder%<10s": [
+     2.6,
+     77
+    ]
+   }
+  },
+  "BASE": {
+   "timing": {
+    "n": 1907,
+    "median": 2.0,
+    "mean": 2.81,
+    "instant%": 16.9,
+    "10s+%": 5.4,
+    "p90": 7.0,
+    "clock@20": 135.0,
+    "clock@30": 93.00000250339508,
+    "clock@40": 58.99999916553497,
+    "under10s_games%": 10.0,
+    "med_think_by_move": [
+     1.0,
+     2.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "scramble<5s": {
+     "share%": 1.8,
+     "instant%": 70.6,
+     "mean": 0.38
+    },
+    "scramble5-10s": {
+     "share%": 1.5,
+     "instant%": 46.4,
+     "mean": 0.82
+    },
+    "scramble10-30s": {
+     "share%": 2.6,
+     "instant%": 18.4,
+     "mean": 2.43
+    },
+    "scramble30-60s": {
+     "share%": 6.4,
+     "instant%": 16.3,
+     "mean": 2.73
+    },
+    "W1log_vs_real": 0.1201
+   },
+   "results": {
+    "score%": 20.8,
+    "median_plies": 59.5,
+    "plies_p25_p75": [
+     44.0,
+     78.75
+    ],
+    "resigned%": 48.3,
+    "checkmated%": 23.3,
+    "lost_on_time%": 5.0,
+    "won_opp_resigned%": 10.0,
+    "won_mate%": 8.3,
+    "won_on_time%": 0.0,
+    "draw%": 5.0,
+    "unfinished%": 0.0
+   },
+   "mistakes": {
+    "n": 861,
+    "ACPL": 75.2,
+    "mistake%": 17.2,
+    "blunder%": 5.0,
+    "blunder%>60s": [
+     4.6,
+     762
+    ],
+    "blunder%30-60s": [
+     5.4,
+     74
+    ],
+    "blunder%10-30s": [
+     10.0,
+     10
+    ],
+    "blunder%<10s": [
+     20.0,
+     15
+    ]
+   }
+  }
+ },
+ "kpowe52": {
+  "REAL": {
+   "timing": {
+    "n": 3212,
+    "median": 2.0,
+    "mean": 3.34,
+    "instant%": 10.8,
+    "10s+%": 6.2,
+    "p90": 8.0,
+    "clock@20": 124.99999523162842,
+    "clock@30": 76.99999809265137,
+    "clock@40": 38.00000041723251,
+    "under10s_games%": 25.0,
+    "med_think_by_move": [
+     1.0,
+     4.0,
+     4.0,
+     3.0,
+     1.0
+    ],
+    "scramble<5s": {
+     "share%": 1.7,
+     "instant%": 33.3,
+     "mean": 0.78
+    },
+    "scramble5-10s": {
+     "share%": 2.2,
+     "instant%": 12.7,
+     "mean": 1.28
+    },
+    "scramble10-30s": {
+     "share%": 8.0,
+     "instant%": 4.7,
+     "mean": 2.08
+    },
+    "scramble30-60s": {
+     "share%": 11.8,
+     "instant%": 3.7,
+     "mean": 3.34
+    }
+   },
+   "results": {
+    "score%": 57.5,
+    "median_plies": 80.0,
+    "plies_p25_p75": [
+     60.0,
+     97.0
+    ],
+    "resigned%": 0.0,
+    "checkmated%": 25.0,
+    "lost_on_time%": 15.0,
+    "won_opp_resigned%": 17.5,
+    "won_mate%": 21.2,
+    "won_on_time%": 16.2,
+    "draw%": 5.0,
+    "unfinished%": 0.0
+   },
+   "mistakes": {
+    "n": 1259,
+    "ACPL": 74.7,
+    "mistake%": 18.4,
+    "blunder%": 5.3,
+    "blunder%>60s": [
+     5.2,
+     849
+    ],
+    "blunder%30-60s": [
+     4.1,
+     193
+    ],
+    "blunder%10-30s": [
+     8.5,
+     142
+    ],
+    "blunder%<10s": [
+     5.7,
+     53
+    ]
+   }
+  },
+  "CLONE": {
+   "timing": {
+    "n": 2679,
+    "median": 2.0,
+    "mean": 3.28,
+    "instant%": 8.5,
+    "10s+%": 5.2,
+    "p90": 7.0,
+    "clock@20": 122.49999940395355,
+    "clock@30": 74.99999821186066,
+    "clock@40": 39.00000035762787,
+    "under10s_games%": 40.0,
+    "med_think_by_move": [
+     1.0,
+     4.0,
+     4.0,
+     2.0,
+     1.0
+    ],
+    "scramble<5s": {
+     "share%": 3.7,
+     "instant%": 33.3,
+     "mean": 0.76
+    },
+    "scramble5-10s": {
+     "share%": 2.9,
+     "instant%": 11.5,
+     "mean": 1.35
+    },
+    "scramble10-30s": {
+     "share%": 8.5,
+     "instant%": 5.2,
+     "mean": 2.42
+    },
+    "scramble30-60s": {
+     "share%": 13.5,
+     "instant%": 3.3,
+     "mean": 3.22
+    },
+    "W1log_vs_real": 0.031
+   },
+   "results": {
+    "score%": 35.0,
+    "median_plies": 92.0,
+    "plies_p25_p75": [
+     74.25,
+     106.75
+    ],
+    "resigned%": 0.0,
+    "checkmated%": 28.3,
+    "lost_on_time%": 31.7,
+    "won_opp_resigned%": 16.7,
+    "won_mate%": 8.3,
+    "won_on_time%": 5.0,
+    "draw%": 10.0,
+    "unfinished%": 0.0
+   },
+   "mistakes": {
+    "n": 1513,
+    "ACPL": 72.7,
+    "mistake%": 16.1,
+    "blunder%": 4.9,
+    "blunder%>60s": [
+     4.6,
+     987
+    ],
+    "blunder%30-60s": [
+     6.2,
+     241
+    ],
+    "blunder%10-30s": [
+     5.6,
+     160
+    ],
+    "blunder%<10s": [
+     4.0,
+     125
+    ]
+   }
+  },
+  "BASE": {
+   "timing": {
+    "n": 2218,
+    "median": 2.0,
+    "mean": 3.01,
+    "instant%": 13.9,
+    "10s+%": 5.8,
+    "p90": 7.0,
+    "clock@20": 125.99999785423279,
+    "clock@30": 85.99999755620956,
+    "clock@40": 72.0000010728836,
+    "under10s_games%": 13.3,
+    "med_think_by_move": [
+     1.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "scramble<5s": {
+     "share%": 2.4,
+     "instant%": 68.5,
+     "mean": 0.41
+    },
+    "scramble5-10s": {
+     "share%": 1.5,
+     "instant%": 30.3,
+     "mean": 1.39
+    },
+    "scramble10-30s": {
+     "share%": 4.4,
+     "instant%": 8.2,
+     "mean": 2.36
+    },
+    "scramble30-60s": {
+     "share%": 8.3,
+     "instant%": 12.4,
+     "mean": 2.82
+    },
+    "W1log_vs_real": 0.1186
+   },
+   "results": {
+    "score%": 40.0,
+    "median_plies": 72.0,
+    "plies_p25_p75": [
+     53.5,
+     90.25
+    ],
+    "resigned%": 35.0,
+    "checkmated%": 11.7,
+    "lost_on_time%": 10.0,
+    "won_opp_resigned%": 21.7,
+    "won_mate%": 13.3,
+    "won_on_time%": 1.7,
+    "draw%": 6.7,
+    "unfinished%": 0.0
+   },
+   "mistakes": {
+    "n": 1096,
+    "ACPL": 80.4,
+    "mistake%": 16.1,
+    "blunder%": 6.3,
+    "blunder%>60s": [
+     5.3,
+     884
+    ],
+    "blunder%30-60s": [
+     9.8,
+     132
+    ],
+    "blunder%10-30s": [
+     11.3,
+     62
+    ],
+    "blunder%<10s": [
+     11.1,
+     18
+    ]
+   }
+  }
+ },
+ "OKENITE": {
+  "REAL": {
+   "timing": {
+    "n": 3782,
+    "median": 2.0,
+    "mean": 2.69,
+    "instant%": 5.6,
+    "10s+%": 2.4,
+    "p90": 6.0,
+    "clock@20": 131.00000023841858,
+    "clock@30": 97.99999952316284,
+    "clock@40": 70.99999845027924,
+    "under10s_games%": 20.0,
+    "med_think_by_move": [
+     2.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "scramble<5s": {
+     "share%": 0.8,
+     "instant%": 19.4,
+     "mean": 1.1
+    },
+    "scramble5-10s": {
+     "share%": 1.6,
+     "instant%": 14.5,
+     "mean": 1.16
+    },
+    "scramble10-30s": {
+     "share%": 6.7,
+     "instant%": 6.7,
+     "mean": 1.67
+    },
+    "scramble30-60s": {
+     "share%": 12.3,
+     "instant%": 4.1,
+     "mean": 2.38
+    }
+   },
+   "results": {
+    "score%": 56.2,
+    "median_plies": 99.0,
+    "plies_p25_p75": [
+     67.5,
+     123.5
+    ],
+    "resigned%": 7.5,
+    "checkmated%": 21.2,
+    "lost_on_time%": 10.0,
+    "won_opp_resigned%": 12.5,
+    "won_mate%": 7.5,
+    "won_on_time%": 31.2,
+    "draw%": 10.0,
+    "unfinished%": 0.0
+   },
+   "mistakes": {
+    "n": 1421,
+    "ACPL": 71.7,
+    "mistake%": 17.2,
+    "blunder%": 4.6,
+    "blunder%>60s": [
+     4.6,
+     1092
+    ],
+    "blunder%30-60s": [
+     6.3,
+     190
+    ],
+    "blunder%10-30s": [
+     1.1,
+     92
+    ],
+    "blunder%<10s": [
+     6.4,
+     47
+    ]
+   }
+  },
+  "CLONE": {
+   "timing": {
+    "n": 2724,
+    "median": 2.0,
+    "mean": 2.85,
+    "instant%": 5.7,
+    "10s+%": 3.3,
+    "p90": 6.0,
+    "clock@20": 128.49999904632568,
+    "clock@30": 90.50000131130219,
+    "clock@40": 60.999999046325684,
+    "under10s_games%": 25.0,
+    "med_think_by_move": [
+     2.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "scramble<5s": {
+     "share%": 1.9,
+     "instant%": 26.9,
+     "mean": 0.9
+    },
+    "scramble5-10s": {
+     "share%": 1.7,
+     "instant%": 15.2,
+     "mean": 1.22
+    },
+    "scramble10-30s": {
+     "share%": 6.3,
+     "instant%": 7.0,
+     "mean": 1.91
+    },
+    "scramble30-60s": {
+     "share%": 11.6,
+     "instant%": 4.7,
+     "mean": 2.35
+    },
+    "W1log_vs_real": 0.0252
+   },
+   "results": {
+    "score%": 25.0,
+    "median_plies": 90.5,
+    "plies_p25_p75": [
+     64.0,
+     109.75
+    ],
+    "resigned%": 16.7,
+    "checkmated%": 36.7,
+    "lost_on_time%": 15.0,
+    "won_opp_resigned%": 5.0,
+    "won_mate%": 10.0,
+    "won_on_time%": 3.3,
+    "draw%": 13.3,
+    "unfinished%": 0.0
+   },
+   "mistakes": {
+    "n": 1496,
+    "ACPL": 74.7,
+    "mistake%": 18.8,
+    "blunder%": 4.8,
+    "blunder%>60s": [
+     4.8,
+     1094
+    ],
+    "blunder%30-60s": [
+     4.1,
+     218
+    ],
+    "blunder%10-30s": [
+     5.5,
+     127
+    ],
+    "blunder%<10s": [
+     7.0,
+     57
+    ]
+   }
+  },
+  "BASE": {
+   "timing": {
+    "n": 2402,
+    "median": 2.0,
+    "mean": 2.81,
+    "instant%": 13.7,
+    "10s+%": 4.3,
+    "p90": 6.0,
+    "clock@20": 132.4999988079071,
+    "clock@30": 90.0,
+    "clock@40": 63.50000023841858,
+    "under10s_games%": 13.3,
+    "med_think_by_move": [
+     1.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "scramble<5s": {
+     "share%": 1.0,
+     "instant%": 50.0,
+     "mean": 0.62
+    },
+    "scramble5-10s": {
+     "share%": 2.1,
+     "instant%": 50.0,
+     "mean": 0.82
+    },
+    "scramble10-30s": {
+     "share%": 5.5,
+     "instant%": 19.7,
+     "mean": 1.67
+    },
+    "scramble30-60s": {
+     "share%": 7.2,
+     "instant%": 11.6,
+     "mean": 2.88
+    },
+    "W1log_vs_real": 0.1479
+   },
+   "results": {
+    "score%": 50.0,
+    "median_plies": 75.5,
+    "plies_p25_p75": [
+     59.75,
+     95.25
+    ],
+    "resigned%": 28.3,
+    "checkmated%": 15.0,
+    "lost_on_time%": 3.3,
+    "won_opp_resigned%": 13.3,
+    "won_mate%": 23.3,
+    "won_on_time%": 10.0,
+    "draw%": 6.7,
+    "unfinished%": 0.0
+   },
+   "mistakes": {
+    "n": 1297,
+    "ACPL": 67.7,
+    "mistake%": 18.0,
+    "blunder%": 3.9,
+    "blunder%>60s": [
+     4.1,
+     1121
+    ],
+    "blunder%30-60s": [
+     5.8,
+     86
+    ],
+    "blunder%10-30s": [
+     0.0,
+     53
+    ],
+    "blunder%<10s": [
+     0.0,
+     37
+    ]
+   }
+  }
+ }
+}

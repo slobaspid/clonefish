@@ -1,0 +1,29 @@
+{
+ "OKENITE:player:0-10": {
+  "auc_real_vs_generated": 0.6699594731509626,
+  "auc_position_only": 0.6741257031058938,
+  "auc_control": 0.4866174434702354,
+  "n_per_side": 1479,
+  "gen": "results/clonefish/OKENITE_CLONE_v3.pgn",
+  "side": "player",
+  "phase": "0-10"
+ },
+ "OKENITE:player:10-25": {
+  "auc_real_vs_generated": 0.5627269269338497,
+  "auc_position_only": 0.6206386804522979,
+  "auc_control": 0.5224311881673034,
+  "n_per_side": 2130,
+  "gen": "results/clonefish/OKENITE_CLONE_v3.pgn",
+  "side": "player",
+  "phase": "10-25"
+ },
+ "OKENITE:player:25-999": {
+  "auc_real_vs_generated": 0.6270031190877947,
+  "auc_position_only": 0.6845732985631743,
+  "auc_control": 0.49246978927394386,
+  "n_per_side": 2794,
+  "gen": "results/clonefish/OKENITE_CLONE_v3.pgn",
+  "side": "player",
+  "phase": "25-999"
+ }
+}

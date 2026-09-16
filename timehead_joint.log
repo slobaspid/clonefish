@@ -1,0 +1,19 @@
+building raw caches (resumable)...
+train 317,307 positions | test 86,285
+time head initialised from checkpoints/timehead/bucket-ce.pt
+arm=joint | trainable 19.66M | lr 1e-05
+step 0: test r@E[t] 0.5537  (untrained head)
+step    250: loss 3.4985 time 1.7710 | test r@E[t] 0.5552 | 211s
+step    500: loss 3.1575 time 1.7750 | test r@E[t] 0.5543 | 423s
+step    750: loss 3.0796 time 1.7492 | test r@E[t] 0.5508 | 634s
+step   1000: loss 3.4040 time 1.8076 | test r@E[t] 0.5461 | 846s
+step   1250: loss 3.0883 time 1.6062 | test r@E[t] 0.5526 | 1057s
+step   1500: loss 3.2097 time 1.6016 | test r@E[t] 0.5503 | 1268s
+step   1750: loss 3.4156 time 2.0497 | test r@E[t] 0.5513 | 1480s
+step   2000: loss 3.3845 time 1.8825 | test r@E[t] 0.5526 | 1691s
+step   2250: loss 3.2088 time 1.8218 | test r@E[t] 0.5513 | 1903s
+step   2500: loss 3.1713 time 1.8939 | test r@E[t] 0.5467 | 2114s
+step   2750: loss 3.3705 time 1.8783 | test r@E[t] 0.5482 | 2326s
+step   3000: loss 2.6871 time 1.6370 | test r@E[t] 0.5512 | 2537s
+
+arm=joint: best test r@E[t] = 0.5552   (frozen-feature ceiling was 0.5753)

@@ -1,0 +1,143 @@
+{
+ "VEGETAL": {
+  "<5s": {
+   "n": 1385,
+   "instant_real": 20.9,
+   "instant_model": 20.7,
+   "mean_real": 0.99,
+   "mean_model": 0.99,
+   "tank_real": 0.0,
+   "tank_model": 0.0
+  },
+  "5-10s": {
+   "n": 2314,
+   "instant_real": 12.4,
+   "instant_model": 11.8,
+   "mean_real": 1.35,
+   "mean_model": 1.33,
+   "tank_real": 0.0,
+   "tank_model": 0.0
+  },
+  "10-30s": {
+   "n": 10692,
+   "instant_real": 7.7,
+   "instant_model": 8.1,
+   "mean_real": 1.81,
+   "mean_model": 1.78,
+   "tank_real": 0.7,
+   "tank_model": 0.6
+  },
+  "30-60s": {
+   "n": 19639,
+   "instant_real": 4.6,
+   "instant_model": 4.6,
+   "mean_real": 2.53,
+   "mean_model": 2.55,
+   "tank_real": 2.4,
+   "tank_model": 2.4
+  },
+  ">60s": {
+   "n": 6000,
+   "instant_real": 2.3,
+   "instant_model": 2.5,
+   "mean_real": 3.45,
+   "mean_model": 3.4,
+   "tank_real": 5.8,
+   "tank_model": 5.5
+  }
+ },
+ "kpowe52": {
+  "<5s": {
+   "n": 2476,
+   "instant_real": 29.2,
+   "instant_model": 26.8,
+   "mean_real": 0.92,
+   "mean_model": 0.91,
+   "tank_real": 0.0,
+   "tank_model": 0.0
+  },
+  "5-10s": {
+   "n": 3452,
+   "instant_real": 13.3,
+   "instant_model": 12.9,
+   "mean_real": 1.43,
+   "mean_model": 1.39,
+   "tank_real": 0.0,
+   "tank_model": 0.0
+  },
+  "10-30s": {
+   "n": 11359,
+   "instant_real": 6.4,
+   "instant_model": 6.9,
+   "mean_real": 2.25,
+   "mean_model": 2.18,
+   "tank_real": 1.0,
+   "tank_model": 1.0
+  },
+  "30-60s": {
+   "n": 16680,
+   "instant_real": 3.2,
+   "instant_model": 3.7,
+   "mean_real": 3.3,
+   "mean_model": 3.29,
+   "tank_real": 4.5,
+   "tank_model": 4.2
+  },
+  ">60s": {
+   "n": 6000,
+   "instant_real": 6.1,
+   "instant_model": 6.6,
+   "mean_real": 3.82,
+   "mean_model": 3.73,
+   "tank_real": 7.6,
+   "tank_model": 6.8
+  }
+ },
+ "OKENITE": {
+  "<5s": {
+   "n": 845,
+   "instant_real": 19.1,
+   "instant_model": 19.9,
+   "mean_real": 1.04,
+   "mean_model": 1.04,
+   "tank_real": 0.0,
+   "tank_model": 0.0
+  },
+  "5-10s": {
+   "n": 1418,
+   "instant_real": 11.4,
+   "instant_model": 10.9,
+   "mean_real": 1.36,
+   "mean_model": 1.36,
+   "tank_real": 0.0,
+   "tank_model": 0.0
+  },
+  "10-30s": {
+   "n": 7121,
+   "instant_real": 6.7,
+   "instant_model": 7.3,
+   "mean_real": 1.75,
+   "mean_model": 1.75,
+   "tank_real": 0.3,
+   "tank_model": 0.3
+  },
+  "30-60s": {
+   "n": 15928,
+   "instant_real": 4.8,
+   "instant_model": 4.9,
+   "mean_real": 2.35,
+   "mean_model": 2.3,
+   "tank_real": 1.6,
+   "tank_model": 1.4
+  },
+  ">60s": {
+   "n": 6000,
+   "instant_real": 2.7,
+   "instant_model": 2.8,
+   "mean_real": 2.94,
+   "mean_model": 2.91,
+   "tank_real": 2.9,
+   "tank_model": 3.0
+  }
+ }
+}

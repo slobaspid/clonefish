@@ -37,7 +37,13 @@ From the Chessformer paper (ICLR 2026) and the CSSLab/maia3 repo:
   between a learnable weak (Elo 0) and strong (Elo 5000) endpoint, prepended as tokens.
 - **Heads**: source→destination attention policy (64×64 + promotion bias) and a
   mean-pooled Win/Draw/Loss value head.
-- **Sizes**: 5M / 23M / 79M. Trained on ~884k rating-balanced Lichess blitz positions.
+- **Sizes**: 5M / 23M / 79M — move-match **55.4 / 56.6 / 57.1%** on the Allie test set (paper Table 1).
+  Trained on rating-balanced Lichess **blitz games from Jan 2023 to Jul 2025** (31 months), resampled so
+  every skill level is equally represented, 32 positions sampled per game. The paper states no total.
+  **CORRECTION (2026-09-02):** this line previously read "trained on ~884k rating-balanced Lichess blitz
+  positions". That was wrong — 884,049 is the **Allie TEST set** (Zhang et al. 2025: Lichess blitz 2022,
+  first 10 moves and time-pressure positions removed), the shared eval benchmark, not training data. The
+  error made our corpus look ~90x larger than Maia-3's when it is very likely smaller.
 - **Crucially for us**: Maia-3 **deliberately discards time** — it removed time-pressure
   positions and only carried a time-pressure flag "for infrastructure compatibility without
   performance impact." **No one has modeled clock-aware human play in this architecture.**

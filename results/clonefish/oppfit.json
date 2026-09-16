@@ -1,0 +1,96 @@
+{
+ "VEGETAL:ResignBias": {
+  "real_big": {
+   "n": 1000,
+   "under10%": 30.1,
+   "opp_flag%": 18.2,
+   "opp_resign%": 13.8,
+   "resign_given_loss%": 36.8,
+   "clock": [
+    122.0,
+    78.0,
+    45.0
+   ]
+  },
+  "real_held": {
+   "n": 80,
+   "under10%": 48.75,
+   "opp_flag%": 28.75,
+   "opp_resign%": 7.5,
+   "resign_given_loss%": 19.35483870967742,
+   "clock": [
+    124.0,
+    78.0,
+    44.0
+   ]
+  },
+  "real_plies": 99.0,
+  "grid": {
+   "0": {
+    "opp": {
+     "n": 80,
+     "under10%": 27.5,
+     "opp_flag%": 13.75,
+     "opp_resign%": 22.5,
+     "resign_given_loss%": 51.42857142857143,
+     "clock": [
+      112.0,
+      69.0,
+      34.0
+     ]
+    },
+    "W1": 0.0217,
+    "median_plies": 78.5
+   },
+   "-50": {
+    "opp": {
+     "n": 80,
+     "under10%": 31.25,
+     "opp_flag%": 13.75,
+     "opp_resign%": 11.25,
+     "resign_given_loss%": 29.032258064516128,
+     "clock": [
+      118.0,
+      67.0,
+      27.0
+     ]
+    },
+    "W1": 0.0124,
+    "median_plies": 87.0
+   },
+   "-100": {
+    "opp": {
+     "n": 79,
+     "under10%": 31.645569620253166,
+     "opp_flag%": 13.924050632911392,
+     "opp_resign%": 8.860759493670885,
+     "resign_given_loss%": 30.434782608695652,
+     "clock": [
+      117.0,
+      70.5,
+      37.0
+     ]
+    },
+    "W1": 0.0233,
+    "median_plies": 94.0
+   },
+   "-150": {
+    "opp": {
+     "n": 80,
+     "under10%": 42.5,
+     "opp_flag%": 17.5,
+     "opp_resign%": 5.0,
+     "resign_given_loss%": 13.793103448275861,
+     "clock": [
+      120.0,
+      72.0,
+      41.0
+     ]
+    },
+    "W1": 0.0316,
+    "median_plies": 95.5
+   }
+  },
+  "best_by_length": -150
+ }
+}
