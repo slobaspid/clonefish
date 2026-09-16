@@ -3,7 +3,7 @@
 > A clock-aware, human-imitating chess model. This doc is a comprehensive snapshot of what's
 > built, why, how to use it, and what's next — written as a handoff so any fresh session can
 > continue without re-deriving context. Date of this snapshot: **2026-08-12**.
-> Repo: https://github.com/slobaspid/sah-transformer
+> Repo: https://github.com/slobaspid/clonefish
 
 ---
 
