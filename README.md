@@ -1,4 +1,4 @@
-# sah-transformer — play against a clone of yourself
+# clonefish — play against a clone of yourself
 
 Give it a Lichess or chess.com username and it produces a **chess engine that plays like that person** — their
 moves, how long they think, when they resign, when they lose on time.
@@ -53,6 +53,13 @@ pip install -r requirements.txt     # python-chess, numpy, zstandard, torch 2.4
 A GPU is needed to *build* a clone (~45 min for 5,000 games on a GTX 1060; don't run other heavy jobs alongside).
 Playing one needs only a CPU. **Stockfish is needed only by the evaluation harness**, not for building or playing —
 see FINAL.md for where to put it.
+
+**You also need the base model.** Every clone is a fine-tune of a trunk at `checkpoints/base_300k_best.pt`
+(234 MB), and that file is **not in this repo and not currently published anywhere public** — the run bundle it
+lives in is a private HuggingFace repo. So cloning this repo alone will not let you build a clone: you need those
+weights from the author, or you train the trunk yourself (`scripts/train.py`, and `PROJECT_STATUS.md` for how).
+Everything else here — the pipeline, the engine, the evaluation harness — is complete and runnable once it is in
+place.
 
 Model weights, encoded caches, game data and the Stockfish binary are not in git (several GB); the code that
 produces them is.

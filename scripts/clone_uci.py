@@ -139,7 +139,7 @@ def main():
         cmd = tok[0]
         if cmd == "uci":
             out(f"id name Clone-{eng.name}")
-            out("id author sah-transformer")
+            out("id author clonefish")
             out(f"option name Elo type spin default {eng.opt['Elo']} min 600 max 3200")
             out("option name Randomness type spin default 100 min 10 max 150")
             out("option name MoveFilterTopP type spin default 90 min 50 max 100")
