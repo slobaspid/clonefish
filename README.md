@@ -1,77 +1,77 @@
-# clonefish — play against a clone of yourself
+# clonefish
 
-Give it a Lichess or chess.com username and it produces a **chess engine that plays like that person** — their
-moves, how long they think, when they resign, when they lose on time.
+Turns someone's online chess history into a chess engine that plays like them — their moves, how long they think,
+when they resign, when they lose on time. Built for **3+0 blitz**.
+
+## Build a clone
 
 ```bash
 python scripts/clonefish_build.py --lichess  THEIR_USERNAME
 python scripts/clonefish_build.py --chesscom THEIR_USERNAME
 ```
 
-That downloads their rated 3+0 games with clock times from the site's public API, fine-tunes the base model on up to
-5,000 of them, builds their opening book, learns their resignation habit, and writes
-`engines/clonefish_<name>.bat` — a UCI engine you can add to any chess GUI (Cute Chess, Arena, Nibbler, En Croissant)
-or point a lichess-bot at. Nothing is set by hand per player; everything is learned from their games.
+Downloads their rated 3+0 games from the site's public API, fine-tunes the base model on up to 5,000 of them, builds
+their opening book, learns their resignation habit, and writes `engines/clonefish_<name>.bat`.
 
-Then either add that `.bat` to your GUI, or double-click `play_clonefish.bat` to play them in your browser.
+Takes about 45 minutes for 5,000 games on a GTX 1060. Don't run other heavy jobs while it works.
 
-## How well does it actually match?
+Already have a PGN? Skip the download:
 
-Measured against each player's own held-out games — games the clone never trained on — across 150 simulated games
-per player. It passes **13 of 15** whole-game checks:
+```bash
+python scripts/clonefish_build.py --pgn their_games.pgn --name THEIR_USERNAME
+```
 
-| what | result |
-|---|---|
-| think-time distribution | W1 **0.018–0.030** vs the base model's 0.13–0.15 (5–10× closer) |
-| mistakes (Stockfish) | average centipawn loss within **+2.0 / +1.0 / −4.9** of the player |
-| move match | top-3 **85.5 / 85.7 / 88.8 %** vs a base model at 80.1 % |
-| resigning, losing on time, game length | matches on all three players |
+Useful flags: `--games N` (default 5000), `--months N` (chess.com, how far back to read), `--force` (rebuild from
+scratch).
 
-It holds up on players never used while developing it. The full write-up, including the two checks it misses and
-why, is in **[`results/clonefish/FINAL.md`](results/clonefish/FINAL.md)** — along with a list of things that were
-tried and *rejected*, so nobody re-treads them.
+## Play against it
 
-Scope: **3+0 blitz**, and it needs games that have clock times in them.
+- **In your browser** — double-click `play_clonefish.bat`, then open http://localhost:5001. Real 3+0 clocks, either
+  side can lose on time, PGN with clock times at the end.
+- **In a chess GUI** — add `engines/clonefish_<name>.bat` as a UCI engine (Cute Chess, Arena, Nibbler,
+  En Croissant).
+- **On Lichess** — point a lichess-bot at the same `.bat`. Set `resign: enabled: true, score: -9000, moves: 1` so it
+  resigns when the clone decides to; UCI has no resign command, so it reports a hopeless score instead.
 
-## The model underneath
-
-Not an engine that chases the best move — a human-imitation model where realism beats strength. A Maia-3-style
-board transformer (re-implemented from their papers, our own weights) with three additions of our own:
-
-- a **clock-aware layer** that reads the remaining time and modulates play,
-- an **MDN think-time head** that predicts *how long a human would think*, as a mixture of log-normals,
-- a difficulty-into-timing signal.
-
-A clone is then a fine-tune of that base on one person's games. `PROJECT_STATUS.md` covers the training side.
-
-## Setup
+## What you need
 
 ```bash
 pip install -r requirements.txt     # python-chess, numpy, zstandard, torch 2.4
 ```
 
-A GPU is needed to *build* a clone (~45 min for 5,000 games on a GTX 1060; don't run other heavy jobs alongside).
-Playing one needs only a CPU. **Stockfish is needed only by the evaluation harness**, not for building or playing —
-see FINAL.md for where to put it.
+- A **GPU** to build a clone. Playing one only needs a CPU.
+- **The base model**, `checkpoints/base_300k_best.pt` (234 MB). Every clone is a fine-tune of it, and it is **not in
+  this repo and not published** — so you need it from the author, or you train it yourself with `scripts/train.py`
+  (see `PROJECT_STATUS.md`). Nothing else here will run without it.
+- **Stockfish** only if you want to run the evaluation harness — not needed to build or play. Path is set at the top
+  of `scripts/clonefish_eval.py`.
 
-**You also need the base model.** Every clone is a fine-tune of a trunk at `checkpoints/base_300k_best.pt`
-(234 MB), and that file is **not in this repo and not currently published anywhere public** — the run bundle it
-lives in is a private HuggingFace repo. So cloning this repo alone will not let you build a clone: you need those
-weights from the author, or you train the trunk yourself (`scripts/train.py`, and `PROJECT_STATUS.md` for how).
-Everything else here — the pipeline, the engine, the evaluation harness — is complete and runnable once it is in
-place.
+## Engine options
 
-Model weights, encoded caches, game data and the Stockfish binary are not in git (several GB); the code that
-produces them is.
+Set these in your GUI like any other UCI option.
 
-## Layout
+| option | default | what it does |
+|---|---|---|
+| `Elo` / `OppElo` | the player's own / their usual opponents' | strength it plays at, and what it expects to face |
+| `UseBook` | true | use the player's opening book — also where their opening think-times come from |
+| `Temperature` | 100 | move randomness; lower is cleaner and less human |
+| `TopP` | 90 | ignore the least likely 10 % of moves |
+| `MimicClock` | true | actually spend the think-time it sampled |
+| `AllowFlag` | true | may lose on time, like a person. Set false for an engine that never flags |
+| `Resign` | on if a resign model exists | resign the way that player does |
+| `MoveOverheadMs` | 100 | lag allowance for online play |
 
-| path | what |
-|---|---|
-| `scripts/clonefish_build.py` | the one command: username → engine |
-| `scripts/clonefish_fetch.py` | downloads a player's 3+0 games (public API, rate-limit friendly) |
-| `scripts/clonefish_uci.py` | the engine itself |
-| `scripts/clonefish_eval.py` | the evaluation harness behind every number above |
-| `results/clonefish/FINAL.md` | **start here** — results, what was rejected, what's still open |
-| `sahformer/` | the model: trunk, heads, encoding, training loop |
-| `engines/` | generated launchers + how to use them |
+`NormPush`, `IdentityPush`, `PaceSigma` and `ResignBias` exist but default to 0 — all were tested and made the clone
+worse. Leave them alone.
+
+## Limits
+
+- 3+0 blitz only.
+- Needs games that carry clock times (Lichess and chess.com both do).
+- Clones a person's *style*, not a strength dial — it plays at roughly their level because that's how they play.
+- One player per clone.
+
+## More
+
+`results/clonefish/FINAL.md` — how closely clones match their players, and a list of approaches that were tried and
+didn't work, so you don't repeat them. `PROJECT_STATUS.md` covers the underlying model.
