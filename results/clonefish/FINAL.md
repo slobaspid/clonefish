@@ -17,6 +17,13 @@ clocks, fine-tunes on up to their 5,000 most recent games
 (~45 min on a GTX 1060), builds their opening book, learns their resignation habit, writes
 `engines/clonefish_THEIR_USERNAME.bat`. Everything is learned from their games; nothing is hand-set per player.
 
+**Requirements.** A GPU for the fine-tune (~45 min for 5,000 games on a GTX 1060; run nothing else heavy alongside —
+this machine hard-powered-off when a GPU job and a heavy CPU job overlapped). Building and *playing* a clone needs
+nothing else. **Only the evaluation harness needs Stockfish**, at the path hard-coded in `scripts/clonefish_eval.py`:
+`tools/stockfish/stockfish/stockfish-windows-x86-64-avx2.exe`. That binary is deliberately NOT in git (third-party,
+platform-specific), so download it there, or edit `SF` — the path is Windows-specific and is the one thing that
+needs changing to run the evaluation on Linux or macOS.
+
 ## Recommended configuration
 
 Full fine-tune with `--time-loss bucket` · personal opening book · sampled move (top-p 0.9) · sampled think-time

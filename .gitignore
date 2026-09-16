@@ -34,3 +34,5 @@ kaggle_bundle/
 # run logs; the findings they produced live in results/clonefish/*.md and *.json
 *.log
 .claude/
+# third-party Stockfish binary used by the evaluation harness (see results/clonefish/FINAL.md)
+tools/
