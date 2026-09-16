@@ -1,0 +1,97 @@
+{
+ "name": "kpowe52",
+ "stage0": false,
+ "zero_second_frac_test": 0.103,
+ "arms": {
+  "a0.0": {
+   "top1": 48.74,
+   "top3": 79.74
+  },
+  "a1.0": {
+   "top1": 53.25,
+   "top3": 83.81
+  }
+ },
+ "dial_picked": {
+  "alpha": 1.0,
+  "top1": 53.25,
+  "top3": 83.81,
+  "d_top1_vs_ft": 0.0,
+  "d_top3_vs_ft": 0.0,
+  "ci_top3_vs_ft": [
+   0.0,
+   0.0
+  ],
+  "ci_top1_vs_ft": [
+   0.0,
+   0.0
+  ]
+ },
+ "timing": {
+  "base": {
+   "bucket_nll": 2.0265,
+   "W1log": 0.0798,
+   "snap_sim": 0.108,
+   "snap_real": 0.103,
+   "tank_sim": 0.047,
+   "tank_real": 0.065,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.468
+  },
+  "base+K4": {
+   "cal(shift,logsig,snapb)": [
+    0.192,
+    -0.046,
+    0.0
+   ],
+   "bucket_nll": 2.0337,
+   "W1log": 0.0604,
+   "snap_sim": 0.084,
+   "snap_real": 0.103,
+   "tank_sim": 0.084,
+   "tank_real": 0.065,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.506
+  },
+  "ft": {
+   "bucket_nll": 2.1765,
+   "W1log": 0.035,
+   "snap_sim": 0.092,
+   "snap_real": 0.103,
+   "tank_sim": 0.06,
+   "tank_real": 0.065,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.531
+  },
+  "ft+K4": {
+   "cal(shift,logsig,snapb)": [
+    -0.235,
+    0.165,
+    0.0
+   ],
+   "bucket_nll": 2.1212,
+   "W1log": 0.1011,
+   "snap_sim": 0.124,
+   "snap_real": 0.103,
+   "tank_sim": 0.056,
+   "tank_real": 0.065,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.467
+  },
+  "lookup_null(val)": {
+   "bucket_nll": 2.2605,
+   "W1log": 0.2309,
+   "snap_sim": 0.086,
+   "snap_real": 0.103,
+   "tank_sim": 0.165,
+   "tank_real": 0.065,
+   "median_sim": 3.0,
+   "median_real": 2.0,
+   "r_log": 0.17
+  }
+ }
+}

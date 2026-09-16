@@ -1,0 +1,437 @@
+{
+ "panel": [
+  "bigbadbo55",
+  "kpowe52",
+  "MALOUMNJAK",
+  "OKENITE",
+  "VEGETAL",
+  "Yespapa",
+  "ARQZITRO",
+  "AlexDC",
+  "Alexei_Soroka",
+  "Ali08",
+  "AliJami78",
+  "BOG1963",
+  "BUCEFULO",
+  "Bennyjoon",
+  "GARROTEITOR",
+  "GMRonWeasley",
+  "Ghandino",
+  "JMN",
+  "Jbahpy",
+  "Kometa",
+  "Lacordaire",
+  "Lawrence_of_Arabia",
+  "MCFChristopher",
+  "MRNOR",
+  "Misun",
+  "Mpkjr12386",
+  "Mr_Temel",
+  "Net44",
+  "Primorskiy",
+  "Rishon"
+ ],
+ "chance": 0.033,
+ "settings": {
+  "S0_orig": {
+   "VEGETAL": {
+    "REAL": {
+     "n": 8,
+     "P@1": 0.5,
+     "top3": 0.5,
+     "rank": 5.5
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.25,
+     "top3": 0.5,
+     "rank": 4.5
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.083,
+     "top3": 0.75,
+     "rank": 3.08
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.167,
+     "top3": 0.75,
+     "rank": 2.83
+    }
+   },
+   "kpowe52": {
+    "REAL": {
+     "n": 8,
+     "P@1": 1.0,
+     "top3": 1.0,
+     "rank": 1.0
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.333,
+     "rank": 5.08
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 8.17
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 5.92
+    }
+   },
+   "OKENITE": {
+    "REAL": {
+     "n": 7,
+     "P@1": 0.143,
+     "top3": 0.571,
+     "rank": 4.0
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 14.75
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.167,
+     "rank": 7.33
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 10.08
+    }
+   }
+  },
+  "S1_len": {
+   "VEGETAL": {
+    "REAL": {
+     "n": 8,
+     "P@1": 0.5,
+     "top3": 0.5,
+     "rank": 5.5
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.333,
+     "top3": 0.75,
+     "rank": 4.17
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.083,
+     "top3": 0.833,
+     "rank": 2.67
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.25,
+     "top3": 0.75,
+     "rank": 2.67
+    }
+   },
+   "kpowe52": {
+    "REAL": {
+     "n": 8,
+     "P@1": 1.0,
+     "top3": 1.0,
+     "rank": 1.0
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.417,
+     "rank": 4.42
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 7.83
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.083,
+     "rank": 5.25
+    }
+   },
+   "OKENITE": {
+    "REAL": {
+     "n": 7,
+     "P@1": 0.143,
+     "top3": 0.571,
+     "rank": 4.0
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 14.67
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.083,
+     "rank": 8.0
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 10.83
+    }
+   }
+  },
+  "S2_len_elo": {
+   "VEGETAL": {
+    "REAL": {
+     "n": 8,
+     "P@1": 0.25,
+     "top3": 0.5,
+     "rank": 7.62
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.25,
+     "top3": 0.417,
+     "rank": 5.42
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.167,
+     "rank": 5.5
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.167,
+     "top3": 0.333,
+     "rank": 5.5
+    }
+   },
+   "kpowe52": {
+    "REAL": {
+     "n": 8,
+     "P@1": 0.375,
+     "top3": 0.875,
+     "rank": 2.0
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 10.75
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 15.25
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 13.5
+    }
+   },
+   "OKENITE": {
+    "REAL": {
+     "n": 7,
+     "P@1": 0.429,
+     "top3": 0.571,
+     "rank": 3.29
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 18.42
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 7.92
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.25,
+     "top3": 0.417,
+     "rank": 5.92
+    }
+   }
+  },
+  "S3_len_elo_time": {
+   "VEGETAL": {
+    "REAL": {
+     "n": 8,
+     "P@1": 0.25,
+     "top3": 0.625,
+     "rank": 8.5
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.167,
+     "rank": 14.17
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.083,
+     "top3": 0.667,
+     "rank": 3.25
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 16.58
+    }
+   },
+   "kpowe52": {
+    "REAL": {
+     "n": 8,
+     "P@1": 0.625,
+     "top3": 0.75,
+     "rank": 2.12
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.167,
+     "rank": 8.58
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.333,
+     "top3": 0.667,
+     "rank": 3.08
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.667,
+     "top3": 0.75,
+     "rank": 3.58
+    }
+   },
+   "OKENITE": {
+    "REAL": {
+     "n": 7,
+     "P@1": 0.429,
+     "top3": 0.714,
+     "rank": 5.0
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.083,
+     "rank": 18.92
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 12.5
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.25,
+     "top3": 0.417,
+     "rank": 5.67
+    }
+   }
+  },
+  "S4_movesonly": {
+   "VEGETAL": {
+    "REAL": {
+     "n": 8,
+     "P@1": 0.125,
+     "top3": 0.25,
+     "rank": 11.0
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 17.25
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 19.92
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.083,
+     "rank": 10.5
+    }
+   },
+   "kpowe52": {
+    "REAL": {
+     "n": 8,
+     "P@1": 0.0,
+     "top3": 0.25,
+     "rank": 7.12
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 15.17
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.083,
+     "top3": 0.25,
+     "rank": 11.67
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.25,
+     "top3": 0.417,
+     "rank": 7.08
+    }
+   },
+   "OKENITE": {
+    "REAL": {
+     "n": 7,
+     "P@1": 0.143,
+     "top3": 0.571,
+     "rank": 8.0
+    },
+    "BASE": {
+     "n": 12,
+     "P@1": 0.083,
+     "top3": 0.167,
+     "rank": 18.5
+    },
+    "CLONE_SELF": {
+     "n": 12,
+     "P@1": 0.0,
+     "top3": 0.0,
+     "rank": 6.25
+    },
+    "CLONE_VSB": {
+     "n": 12,
+     "P@1": 0.25,
+     "top3": 0.417,
+     "rank": 5.08
+    }
+   }
+  }
+ }
+}

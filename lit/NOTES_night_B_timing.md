@@ -1,0 +1,16 @@
+# Night B — cloning ONE person's timing distribution (not the mean)
+
+| Paper | ID | Verified claim | Maps to our lognormal-mixture time head |
+|---|---|---|---|
+| DMTG (mouse) | 2410.18233 | Diffusion model generates human-like mouse paths; cuts bot-detector accuracy 4.75-9.73pp. Generic human-likeness, **not** per-person. | Shows diffusion/sampling beats point-estimate for realism — same lesson as our fact-7 "sampling vs mean is the whole win." No per-user conditioning to borrow. |
+| cGAN keystroke attack | 2212.08445 | Conditional GAN synthesizes keystroke timing to defeat a keystroke-auth system enrolled on **one target user** (impersonation). No numeric fidelity metric in abstract. | Direct structural parallel: condition a generator on a person-ID/embedding to hit one person's timing template — like our per-player residual, which BRIEF fact 1/3 already shows barely moves midgame. |
+| BeCAPTCHA-Mouse | 2005.00890 | Neuromotor kinematic model (paper text names it Sigma-Lognormal, UNVERIFIED from abstract alone) synthesizes mouse motion; 93% detection accuracy w/ one trajectory. | **Lognormal kinematics of human movement is literally our head's distribution family** — independent field converging on lognormal for human timing, supports keeping lognormal mixture over swapping families. |
+| Countdown Regression | 1806.08324 | Trains with Survival-CRPS instead of MLE → sharper, still-calibrated per-individual survival (time-to-event) distributions. | CRPS-as-training-loss is a candidate replacement/addition to our MDN's NLL loss, and CRPS is the natural held-out metric for "did we clone the distribution," not just top-1 mean. |
+| Hierarchical Bayesian RT models (HDDM-style) | not on arXiv (PMC12627168) — UNVERIFIED here | Per-subject RT parameters (e.g. drift rate) shrunk toward a group prior; few trials/subject still get stable individual estimates via partial pooling. | Alternative to full fine-tune (BRIEF fact 3/4): fit per-player mixture-weight/scale as a *shrunk* offset toward the population head instead of an unconstrained adapter — could fix "over-thinks" failure mode (fact 7) with a principled prior instead of ad hoc capacity limits. |
+| Residual adapters / LHUC (TTS) | already read (BRIEF) | — | Same family as our tried bottleneck adapters (fact 4); no new idea, just confirms TTS used identical mechanism for per-speaker prosody duration. |
+
+## Top 2 ideas
+
+1. **Partial-pooling (hierarchical shrinkage) instead of a free per-player adapter for the time head.** Fit each player's mixture params as population-mean + a shrunk personal offset (like HDDM's per-subject drift shrunk to group prior), strength of shrinkage set by that player's data volume. *Falsification:* if per-player CRPS on held-out moves is no better than the plain lookup table that already wins for half of players (fact 7), shrinkage adds nothing — kill it.
+
+2. **Adopt CRPS (à la Survival-CRPS) as an added training loss / primary eval metric for the time head**, replacing reliance on snap-rate/tail-rate heuristics. *Falsification:* if a model trained with CRPS-added loss doesn't beat the current MDN-NLL model on held-out per-player CRPS AND Wasserstein-to-empirical-distribution, the metric swap is cosmetic, not a real lever.

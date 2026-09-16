@@ -18,3 +18,19 @@ data/shards_v3/
 overnight.log
 remote_bundle/
 remote_bundle.tar.gz
+
+# --- keep the repo pushable: weights, caches and third-party PDFs stay local ---
+# (.gitignore has no trailing comments - every pattern gets its own line)
+# fine-tuned clones, ~78 MB each, 1.9 GB total
+clones/
+# encoded position cache, 3.5 GB
+cache/
+# any checkpoint outside checkpoints/, e.g. base_v3_step98000.pt
+*.pt
+# third-party paper PDFs, 290 MB; the NOTES_*.md summaries stay tracked
+lit/pdf/
+kaggle_bundle/
+*.zip
+# run logs; the findings they produced live in results/clonefish/*.md and *.json
+*.log
+.claude/

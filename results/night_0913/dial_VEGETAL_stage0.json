@@ -1,0 +1,67 @@
+{
+ "name": "VEGETAL",
+ "stage0": true,
+ "zero_second_frac_test": 0.069,
+ "arms": {
+  "a0.0": {
+   "top1": 54.55,
+   "top3": 82.88
+  },
+  "a0.25": {
+   "top1": 56.79,
+   "top3": 83.76
+  },
+  "a0.5": {
+   "top1": 58.29,
+   "top3": 84.92
+  },
+  "a0.75": {
+   "top1": 59.78,
+   "top3": 85.46
+  },
+  "a1.0": {
+   "top1": 59.78,
+   "top3": 85.26
+  }
+ },
+ "dial_crossfit": [
+  {
+   "alpha": 0.75,
+   "top1": 59.3,
+   "top3": 85.63,
+   "ft_top1": 59.58,
+   "ft_top3": 85.21
+  },
+  {
+   "alpha": 0.75,
+   "top1": 60.24,
+   "top3": 85.3,
+   "ft_top1": 59.97,
+   "ft_top3": 85.3
+  }
+ ],
+ "timing": {
+  "base": {
+   "bucket_nll": 1.8903,
+   "W1log": 0.0589,
+   "snap_sim": 0.113,
+   "snap_real": 0.069,
+   "tank_sim": 0.061,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.401
+  },
+  "ft": {
+   "bucket_nll": 1.9722,
+   "W1log": 0.0567,
+   "snap_sim": 0.082,
+   "snap_real": 0.069,
+   "tank_sim": 0.041,
+   "tank_real": 0.049,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.397
+  }
+ }
+}

@@ -1,0 +1,97 @@
+{
+ "name": "OKENITE",
+ "stage0": false,
+ "zero_second_frac_test": 0.058,
+ "arms": {
+  "a0.0": {
+   "top1": 59.13,
+   "top3": 86.06
+  },
+  "a1.0": {
+   "top1": 63.56,
+   "top3": 89.29
+  }
+ },
+ "dial_picked": {
+  "alpha": 1.0,
+  "top1": 63.56,
+  "top3": 89.29,
+  "d_top1_vs_ft": 0.0,
+  "d_top3_vs_ft": 0.0,
+  "ci_top3_vs_ft": [
+   0.0,
+   0.0
+  ],
+  "ci_top1_vs_ft": [
+   0.0,
+   0.0
+  ]
+ },
+ "timing": {
+  "base": {
+   "bucket_nll": 1.6891,
+   "W1log": 0.1145,
+   "snap_sim": 0.117,
+   "snap_real": 0.058,
+   "tank_sim": 0.026,
+   "tank_real": 0.019,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.396
+  },
+  "base+K4": {
+   "cal(shift,logsig,snapb)": [
+    0.131,
+    -0.134,
+    0.0
+   ],
+   "bucket_nll": 1.6708,
+   "W1log": 0.073,
+   "snap_sim": 0.097,
+   "snap_real": 0.058,
+   "tank_sim": 0.028,
+   "tank_real": 0.019,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.398
+  },
+  "ft": {
+   "bucket_nll": 1.7195,
+   "W1log": 0.0502,
+   "snap_sim": 0.093,
+   "snap_real": 0.058,
+   "tank_sim": 0.023,
+   "tank_real": 0.019,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.431
+  },
+  "ft+K4": {
+   "cal(shift,logsig,snapb)": [
+    0.007,
+    0.026,
+    0.0
+   ],
+   "bucket_nll": 1.7202,
+   "W1log": 0.0364,
+   "snap_sim": 0.094,
+   "snap_real": 0.058,
+   "tank_sim": 0.018,
+   "tank_real": 0.019,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.42
+  },
+  "lookup_null(val)": {
+   "bucket_nll": 1.9179,
+   "W1log": 0.3294,
+   "snap_sim": 0.06,
+   "snap_real": 0.058,
+   "tank_sim": 0.135,
+   "tank_real": 0.019,
+   "median_sim": 2.0,
+   "median_real": 2.0,
+   "r_log": 0.06
+  }
+ }
+}

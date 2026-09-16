@@ -1,0 +1,629 @@
+{
+ "VEGETAL": {
+  "REAL": {
+   "timing": {
+    "n": 3998,
+    "median": 2.0,
+    "mean": 2.96,
+    "instant%": 7.1,
+    "10s+%": 4.8,
+    "p90": 7.0,
+    "clock@20": 127.00000047683716,
+    "clock@30": 82.00000047683716,
+    "clock@40": 50.99999964237213,
+    "under10s_games%": 33.8,
+    "med_think_by_move": [
+     1.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ]
+   },
+   "results": {
+    "score%": 41.2,
+    "decided_games": 80,
+    "unfinished": 0,
+    "median_plies": 99.0,
+    "time_forfeit_games%": 43.8,
+    "player_lost_on_time%": 15.0
+   },
+   "mistakes": {
+    "n": 1726,
+    "ACPL": 66.7,
+    "mistake%": 16.6,
+    "blunder%": 4.0,
+    "blunder%>60s": [
+     3.6,
+     1077
+    ],
+    "blunder%30-60s": [
+     4.9,
+     306
+    ],
+    "blunder%10-30s": [
+     5.3,
+     265
+    ],
+    "blunder%<10s": [
+     1.3,
+     78
+    ]
+   }
+  },
+  "CLONE": {
+   "timing": {
+    "n": 3144,
+    "median": 2.0,
+    "mean": 2.88,
+    "instant%": 6.4,
+    "10s+%": 3.8,
+    "p90": 6.0,
+    "clock@20": 128.99999499320984,
+    "clock@30": 89.00000005960464,
+    "clock@40": 52.50000089406967,
+    "under10s_games%": 30.0,
+    "med_think_by_move": [
+     2.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "W1log_vs_real": 0.0292
+   },
+   "results": {
+    "score%": 27.5,
+    "decided_games": 60,
+    "unfinished": 0,
+    "median_plies": 112.0,
+    "time_forfeit_games%": 26.7,
+    "player_lost_on_time%": 21.7
+   },
+   "mistakes": {
+    "n": 1765,
+    "ACPL": 66.5,
+    "mistake%": 16.5,
+    "blunder%": 4.0,
+    "blunder%>60s": [
+     3.4,
+     1085
+    ],
+    "blunder%30-60s": [
+     5.3,
+     394
+    ],
+    "blunder%10-30s": [
+     3.0,
+     200
+    ],
+    "blunder%<10s": [
+     7.0,
+     86
+    ]
+   }
+  },
+  "CLONE_P100": {
+   "timing": {
+    "n": 2852,
+    "median": 2.0,
+    "mean": 3.08,
+    "instant%": 6.1,
+    "10s+%": 5.2,
+    "p90": 7.0,
+    "clock@20": 129.9999976158142,
+    "clock@30": 82.00000047683716,
+    "clock@40": 50.00000238418579,
+    "under10s_games%": 35.0,
+    "med_think_by_move": [
+     2.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "W1log_vs_real": 0.042
+   },
+   "results": {
+    "score%": 23.3,
+    "decided_games": 60,
+    "unfinished": 0,
+    "median_plies": 95.5,
+    "time_forfeit_games%": 33.3,
+    "player_lost_on_time%": 23.3
+   },
+   "mistakes": {
+    "n": 1516,
+    "ACPL": 77.4,
+    "mistake%": 18.1,
+    "blunder%": 5.5,
+    "blunder%>60s": [
+     5.1,
+     1021
+    ],
+    "blunder%30-60s": [
+     6.2,
+     260
+    ],
+    "blunder%10-30s": [
+     6.9,
+     159
+    ],
+    "blunder%<10s": [
+     5.3,
+     76
+    ]
+   }
+  },
+  "BASE": {
+   "timing": {
+    "n": 2745,
+    "median": 2.0,
+    "mean": 2.93,
+    "instant%": 15.0,
+    "10s+%": 5.5,
+    "p90": 7.0,
+    "clock@20": 137.99999713897705,
+    "clock@30": 92.99999713897705,
+    "clock@40": 56.00000202655792,
+    "under10s_games%": 23.3,
+    "med_think_by_move": [
+     1.0,
+     2.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "W1log_vs_real": 0.1012
+   },
+   "results": {
+    "score%": 52.5,
+    "decided_games": 60,
+    "unfinished": 0,
+    "median_plies": 91.5,
+    "time_forfeit_games%": 21.7,
+    "player_lost_on_time%": 11.7
+   },
+   "mistakes": {
+    "n": 1568,
+    "ACPL": 72.4,
+    "mistake%": 18.0,
+    "blunder%": 4.7,
+    "blunder%>60s": [
+     4.3,
+     1152
+    ],
+    "blunder%30-60s": [
+     5.2,
+     192
+    ],
+    "blunder%10-30s": [
+     7.1,
+     127
+    ],
+    "blunder%<10s": [
+     4.1,
+     97
+    ]
+   }
+  }
+ },
+ "kpowe52": {
+  "REAL": {
+   "timing": {
+    "n": 3212,
+    "median": 2.0,
+    "mean": 3.34,
+    "instant%": 10.8,
+    "10s+%": 6.2,
+    "p90": 8.0,
+    "clock@20": 124.99999523162842,
+    "clock@30": 76.99999809265137,
+    "clock@40": 38.00000041723251,
+    "under10s_games%": 25.0,
+    "med_think_by_move": [
+     1.0,
+     4.0,
+     4.0,
+     3.0,
+     1.0
+    ]
+   },
+   "results": {
+    "score%": 57.5,
+    "decided_games": 80,
+    "unfinished": 0,
+    "median_plies": 80.0,
+    "time_forfeit_games%": 33.8,
+    "player_lost_on_time%": 16.2
+   },
+   "mistakes": {
+    "n": 1259,
+    "ACPL": 74.8,
+    "mistake%": 18.1,
+    "blunder%": 5.0,
+    "blunder%>60s": [
+     5.1,
+     849
+    ],
+    "blunder%30-60s": [
+     4.1,
+     193
+    ],
+    "blunder%10-30s": [
+     6.3,
+     142
+    ],
+    "blunder%<10s": [
+     5.7,
+     53
+    ]
+   }
+  },
+  "CLONE": {
+   "timing": {
+    "n": 2667,
+    "median": 2.0,
+    "mean": 3.37,
+    "instant%": 8.8,
+    "10s+%": 5.8,
+    "p90": 8.0,
+    "clock@20": 124.49999928474426,
+    "clock@30": 72.99999833106995,
+    "clock@40": 30.00000089406967,
+    "under10s_games%": 38.3,
+    "med_think_by_move": [
+     1.0,
+     4.0,
+     4.0,
+     3.0,
+     1.0
+    ],
+    "W1log_vs_real": 0.025
+   },
+   "results": {
+    "score%": 30.0,
+    "decided_games": 60,
+    "unfinished": 0,
+    "median_plies": 90.0,
+    "time_forfeit_games%": 31.7,
+    "player_lost_on_time%": 25.0
+   },
+   "mistakes": {
+    "n": 1366,
+    "ACPL": 77.3,
+    "mistake%": 18.3,
+    "blunder%": 5.3,
+    "blunder%>60s": [
+     5.6,
+     928
+    ],
+    "blunder%30-60s": [
+     4.5,
+     199
+    ],
+    "blunder%10-30s": [
+     5.5,
+     145
+    ],
+    "blunder%<10s": [
+     4.3,
+     94
+    ]
+   }
+  },
+  "CLONE_P100": {
+   "timing": {
+    "n": 2680,
+    "median": 2.0,
+    "mean": 3.39,
+    "instant%": 8.8,
+    "10s+%": 5.7,
+    "p90": 8.0,
+    "clock@20": 120.999995470047,
+    "clock@30": 72.0000010728836,
+    "clock@40": 28.00000101327896,
+    "under10s_games%": 36.7,
+    "med_think_by_move": [
+     1.0,
+     4.0,
+     4.0,
+     3.0,
+     1.0
+    ],
+    "W1log_vs_real": 0.0316
+   },
+   "results": {
+    "score%": 31.7,
+    "decided_games": 60,
+    "unfinished": 0,
+    "median_plies": 88.5,
+    "time_forfeit_games%": 36.7,
+    "player_lost_on_time%": 26.7
+   },
+   "mistakes": {
+    "n": 1441,
+    "ACPL": 70.6,
+    "mistake%": 18.7,
+    "blunder%": 4.0,
+    "blunder%>60s": [
+     4.8,
+     944
+    ],
+    "blunder%30-60s": [
+     1.9,
+     258
+    ],
+    "blunder%10-30s": [
+     4.3,
+     161
+    ],
+    "blunder%<10s": [
+     1.3,
+     78
+    ]
+   }
+  },
+  "BASE": {
+   "timing": {
+    "n": 2696,
+    "median": 2.0,
+    "mean": 2.97,
+    "instant%": 14.4,
+    "10s+%": 5.7,
+    "p90": 7.0,
+    "clock@20": 128.49999904632568,
+    "clock@30": 74.99999821186066,
+    "clock@40": 48.00000250339508,
+    "under10s_games%": 35.0,
+    "med_think_by_move": [
+     1.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "W1log_vs_real": 0.132
+   },
+   "results": {
+    "score%": 32.5,
+    "decided_games": 60,
+    "unfinished": 0,
+    "median_plies": 93.0,
+    "time_forfeit_games%": 21.7,
+    "player_lost_on_time%": 16.7
+   },
+   "mistakes": {
+    "n": 1527,
+    "ACPL": 71.6,
+    "mistake%": 15.8,
+    "blunder%": 5.2,
+    "blunder%>60s": [
+     4.9,
+     1056
+    ],
+    "blunder%30-60s": [
+     7.3,
+     205
+    ],
+    "blunder%10-30s": [
+     6.1,
+     132
+    ],
+    "blunder%<10s": [
+     3.7,
+     134
+    ]
+   }
+  }
+ },
+ "OKENITE": {
+  "REAL": {
+   "timing": {
+    "n": 3782,
+    "median": 2.0,
+    "mean": 2.69,
+    "instant%": 5.6,
+    "10s+%": 2.4,
+    "p90": 6.0,
+    "clock@20": 131.00000023841858,
+    "clock@30": 97.99999952316284,
+    "clock@40": 70.99999845027924,
+    "under10s_games%": 20.0,
+    "med_think_by_move": [
+     2.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ]
+   },
+   "results": {
+    "score%": 56.2,
+    "decided_games": 80,
+    "unfinished": 0,
+    "median_plies": 99.0,
+    "time_forfeit_games%": 45.0,
+    "player_lost_on_time%": 11.2
+   },
+   "mistakes": {
+    "n": 1421,
+    "ACPL": 71.7,
+    "mistake%": 17.2,
+    "blunder%": 4.6,
+    "blunder%>60s": [
+     4.7,
+     1092
+    ],
+    "blunder%30-60s": [
+     5.8,
+     190
+    ],
+    "blunder%10-30s": [
+     1.1,
+     92
+    ],
+    "blunder%<10s": [
+     6.4,
+     47
+    ]
+   }
+  },
+  "CLONE": {
+   "timing": {
+    "n": 2977,
+    "median": 2.0,
+    "mean": 2.71,
+    "instant%": 8.4,
+    "10s+%": 2.6,
+    "p90": 5.0,
+    "clock@20": 128.99999499320984,
+    "clock@30": 92.99999713897705,
+    "clock@40": 65.50000011920929,
+    "under10s_games%": 13.3,
+    "med_think_by_move": [
+     2.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "W1log_vs_real": 0.0318
+   },
+   "results": {
+    "score%": 20.8,
+    "decided_games": 60,
+    "unfinished": 0,
+    "median_plies": 102.0,
+    "time_forfeit_games%": 18.3,
+    "player_lost_on_time%": 8.3
+   },
+   "mistakes": {
+    "n": 1780,
+    "ACPL": 70.6,
+    "mistake%": 17.6,
+    "blunder%": 4.6,
+    "blunder%>60s": [
+     4.8,
+     1294
+    ],
+    "blunder%30-60s": [
+     4.4,
+     338
+    ],
+    "blunder%10-30s": [
+     2.9,
+     103
+    ],
+    "blunder%<10s": [
+     2.2,
+     45
+    ]
+   }
+  },
+  "CLONE_P100": {
+   "timing": {
+    "n": 2775,
+    "median": 2.0,
+    "mean": 2.6,
+    "instant%": 8.5,
+    "10s+%": 2.1,
+    "p90": 5.0,
+    "clock@20": 129.9999976158142,
+    "clock@30": 96.99999690055847,
+    "clock@40": 70.99999845027924,
+    "under10s_games%": 11.7,
+    "med_think_by_move": [
+     2.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "W1log_vs_real": 0.0342
+   },
+   "results": {
+    "score%": 15.8,
+    "decided_games": 60,
+    "unfinished": 0,
+    "median_plies": 96.5,
+    "time_forfeit_games%": 13.3,
+    "player_lost_on_time%": 10.0
+   },
+   "mistakes": {
+    "n": 1526,
+    "ACPL": 67.5,
+    "mistake%": 15.5,
+    "blunder%": 3.9,
+    "blunder%>60s": [
+     3.9,
+     1251
+    ],
+    "blunder%30-60s": [
+     3.6,
+     169
+    ],
+    "blunder%10-30s": [
+     1.4,
+     74
+    ],
+    "blunder%<10s": [
+     9.4,
+     32
+    ]
+   }
+  },
+  "BASE": {
+   "timing": {
+    "n": 2819,
+    "median": 2.0,
+    "mean": 2.74,
+    "instant%": 15.2,
+    "10s+%": 4.3,
+    "p90": 7.0,
+    "clock@20": 135.0,
+    "clock@30": 97.99999952316284,
+    "clock@40": 59.50000047683716,
+    "under10s_games%": 25.0,
+    "med_think_by_move": [
+     1.0,
+     3.0,
+     3.0,
+     2.0,
+     1.0
+    ],
+    "W1log_vs_real": 0.1666
+   },
+   "results": {
+    "score%": 46.7,
+    "decided_games": 60,
+    "unfinished": 0,
+    "median_plies": 92.5,
+    "time_forfeit_games%": 21.7,
+    "player_lost_on_time%": 13.3
+   },
+   "mistakes": {
+    "n": 1620,
+    "ACPL": 57.5,
+    "mistake%": 12.4,
+    "blunder%": 3.9,
+    "blunder%>60s": [
+     3.7,
+     1201
+    ],
+    "blunder%30-60s": [
+     2.8,
+     216
+    ],
+    "blunder%10-30s": [
+     5.4,
+     112
+    ],
+    "blunder%<10s": [
+     6.6,
+     91
+    ]
+   }
+  }
+ }
+}

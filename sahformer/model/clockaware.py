@@ -34,4 +34,5 @@ class ClockAwareChessformer(nn.Module):
             "move_logits": move_logits,
             "value_logits": self.value(enc),
             "mdn": self.think(think_in),
+            "pooled": pooled,            # position summary — used to condition clone adapters
         }

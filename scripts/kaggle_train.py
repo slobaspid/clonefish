@@ -158,7 +158,14 @@ def main():
     ap.add_argument("--save-every", type=int, default=2000)
     ap.add_argument("--log-every", type=int, default=200)
     ap.add_argument("--val-shards", type=int, default=8,
-                    help="shards reserved from training and used for held-out top-1")
+                    help="shards reserved from the TAIL of --shards for held-out top-1. Ignored "
+                         "when --val-dir is given.")
+    ap.add_argument("--val-dir", default="",
+                    help="directory of dedicated validation shards. Prefer this when the training "
+                         "corpus is re-encoded elsewhere: the encoder splits files across workers "
+                         "and gives each budget/workers, so a different core count produces a "
+                         "different split - and slicing the tail off THAT would silently change "
+                         "the held-out set, breaking comparability with the curve so far.")
     ap.add_argument("--eval-every", type=int, default=2000)
     ap.add_argument("--keep-every", type=int, default=10000,
                     help="also keep a NUMBERED checkpoint this often. last.pt is overwritten, so "
@@ -175,8 +182,15 @@ def main():
              if os.path.isdir(args.shards) else sorted(glob.glob(args.shards)))
     if not paths:
         raise SystemExit(f"no shards matched {args.shards}")
-    val_paths = paths[-args.val_shards:] if args.val_shards > 0 else []
-    paths = paths[:-args.val_shards] if args.val_shards > 0 else paths
+    if args.val_dir:
+        val_paths = sorted(glob.glob(os.path.join(args.val_dir, "*.npz")))
+        if not val_paths:
+            raise SystemExit(f"--val-dir {args.val_dir} contains no .npz")
+        val_names = {os.path.basename(p) for p in val_paths}
+        paths = [p for p in paths if os.path.basename(p) not in val_names]   # never train on them
+    else:
+        val_paths = paths[-args.val_shards:] if args.val_shards > 0 else []
+        paths = paths[:-args.val_shards] if args.val_shards > 0 else paths
     print(f"{len(paths)} train shards (+{len(val_paths)} held out) | device {DEV} | "
           f"micro-batch {args.bs} x accum {args.accum} = EFFECTIVE BATCH {args.bs * args.accum}",
           flush=True)

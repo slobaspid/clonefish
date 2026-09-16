@@ -5,6 +5,11 @@
 # box has many more cores than the 1060 machine, so the encode is quick and the upload is 13x
 # smaller.
 #
+# The 8 VALIDATION shards ship as-is (224MB) rather than being re-derived. The encoder splits
+# files across workers and gives each budget/workers, so a different core count here produces a
+# different split - taking the tail of THAT as validation would silently change the held-out set
+# and break comparability with the curve measured so far.
+#
 #   ./run_remote.sh            resume from checkpoints/base_v3/last.pt if present, else fresh
 #
 # NOTE on the container killing orphans (HANDOFF-08-25): nohup/setsid/tmux were all reported dead
@@ -53,5 +58,6 @@ python -u scripts/kaggle_train.py \
     --shards "$SHARDS" --out "$CKPT" \
     --dim 512 --blocks 12 --heads 8 \
     --bs "$BS" --accum "$ACCUM" --lr 4e-5 --steps "$STEPS" \
-    --save-every 1000 --log-every 200 --eval-every 2000 --keep-every 10000 --val-shards 8
+    --save-every 1000 --log-every 200 --eval-every 2000 --keep-every 10000 \
+    --val-dir data/val_shards
 echo "exited: $?  ($(date))"
